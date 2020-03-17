@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Close tab sessions to save CPU resources and reopen them easily!",
   "author": "Jeremy T.",
-  "permissions": ["activeTab", "storage"],
+  "permissions": ["tabs", "activeTab", "storage", "unlimitedStorage"],
   "background": {
     "scripts": [
         "background.js"
