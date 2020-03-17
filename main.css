@@ -1,0 +1,11 @@
+/*Font for greeting and buttons*/
+@font-face {
+  font-family: 'greetingFont';
+  src: url('fonts/segoeuil.tff') format('truetype'), url('fonts/segoeuil.woff') format('woff');
+}
+
+/*Main page*/
+body {
+  margin: 0;
+  padding: 0;
+}
