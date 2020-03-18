@@ -1,4 +1,4 @@
-/*Font for greeting and buttons*/
+/*Font for logo, buttons, and session rows*/
 @font-face {
   font-family: 'greetingFont';
   src: url('fonts/segoeuil.tff') format('truetype'), url('fonts/segoeuil.woff') format('woff');
@@ -6,6 +6,56 @@
 
 /*Main page*/
 body {
+  background-color: #ccebff;
   margin: 0;
   padding: 0;
+}
+
+/*Tabulate title*/
+h2 {
+  color: #ff00aa;
+  font-size: 30px;
+  text-align: center;
+  font-family: greetingFont;
+}
+
+/*Save buttons*/
+.save-button {
+  background-color: #ff99dd;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  font: greetingFont;
+}
+
+/*Settings button*/
+.settings-button {
+  height: 30px;
+  width: 70px;
+  background: none; 
+  color: white;
+  border: 1px solid #d1e3d1;
+  border-radius: 50px; 
+  font: greetingFont;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.5s;
+  display: inline-block;
+}
+
+.settings-button:hover {
+  background: #ff4dff;
+}
+
+.rotate:hover {
+   transform: rotate(360deg);
+}
+
+.rotate {
+  transition: transform 0.5s ease 0s;
+  display: inline-block;
 }
