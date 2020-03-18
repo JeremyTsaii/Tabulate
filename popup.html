@@ -5,14 +5,17 @@
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
-    <div class = "popup" id = "popup-background">
-      <div>
+    <div id = "popup-background">
+      <div id = "popup-body">
         <h2>Tabulate</h2>
         <button id = "settings"> <span>Settings</span> </button>
         <button id = "session"> <span>Save Current Session</span> </button>
         <button id = "tab"> <span>Save Current Tab</span> </button>
+      <div id = "sessions"> <span>Saved Sessions</span>
+        <div id = "sessions-body"> </div>
+      </div>
       </div>
     </div>
-    <script src="background.js"></script>
+    <script src="popup.js"></script>
   </body>
 </html> 
