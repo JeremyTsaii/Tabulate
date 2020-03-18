@@ -5,51 +5,60 @@
 }
 
 /*Main page*/
-body {
-  background-color: #ccebff;
+html {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  width: 440px;
+  height: 320px;
+  overflow: hidden;
+
+}
+
+body {
+  background-color: #21D4FD;
+  background-image: linear-gradient(0deg, #057CC7 0%, #009CFF 100%);
+  margin: 0;
+  padding: 0;
+  width: 440px;
+  height: 320px;
 }
 
 /*Tabulate title*/
 h2 {
-  color: #ff00aa;
+  color: black;
   font-size: 30px;
   text-align: center;
   font-family: greetingFont;
 }
 
-/*Save buttons*/
-.save-button {
-  background-color: #ff99dd;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 25px;
-  text-decoration: none;
-  margin: 4px 2px;
-  cursor: pointer;
-  font: greetingFont;
+.title {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+
 
 /*Settings button*/
 .settings-button {
+  margin-left: 30px;
   height: 30px;
   width: 70px;
   background: none; 
   color: white;
-  border: 1px solid #99e6ff;
+  /* border: 1px solid #99e6ff; */
   border-radius: 50px; 
   font: greetingFont;
   font-size: 12px;
   cursor: pointer;
   transition: all 0.5s;
-  display: inline-block;
 }
 
-.settings-button:hover {
+/* .settings-button {
   background: #ff4dff;
-}
+} */
 
 .rotate:hover {
    transform: rotate(360deg);
@@ -58,4 +67,25 @@ h2 {
 .rotate {
   transition: transform 0.5s ease 0s;
   display: inline-block;
+  color: #817F7F;
 }
+
+/*Save buttons*/
+.save-button {
+  background-color:black;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  font: greetingFont;
+  
+}
+
+#sessions-body {
+  max-height: 174px;
+  overflow: scroll;
+}
+
