@@ -27,12 +27,27 @@ function restore_user() {
     
   });
 
-  // Event listener for clicking to open session
-  let elements = document.getElementsByClassName("click-session");
-  for (let i = 0; i < elements.length; i++) {
-    alert("added");
-    elements[i].addEventListener("click", open_session);
-  }
+  // Add event listener to session rows
+  // Timeout to let popup load
+  setTimeout(add_listener, 500);
+}
+
+function add_listener() {
+  // Loop through and open all tabs
+  document.getElementById("sessions-body").addEventListener("click", function(e){
+    let obj = e.target;
+    if (obj.className == "click-session") {
+      let id = obj.id;
+      chrome.storage.sync.get([id], function(val) {
+        let arr = val[id];
+        for (var i = 0; i<arr.length;i++){
+          chrome.tabs.create({
+            url: arr[i]
+          });
+        }
+      });
+    }
+  });
 }
 
 // Saving current tab and updating popup
@@ -119,11 +134,6 @@ function prompt_name() {
 
 }
 
-// Loop through and open all tabs
-function open_session() {
-  alert("test");
-}
-
 // Right click on row to rename
 
 
@@ -139,3 +149,4 @@ document.addEventListener("DOMContentLoaded", restore_user);
 document.getElementById("save-tab").addEventListener("click", save_tab);
 document.getElementById("save-session").addEventListener("click", save_session);
 document.getElementById("settings").addEventListener("click", open_settings);
+
