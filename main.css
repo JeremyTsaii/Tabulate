@@ -12,7 +12,6 @@ html {
   width: 440px;
   height: 320px;
   overflow: hidden;
-
 }
 
 body {
@@ -71,6 +70,12 @@ h2 {
 }
 
 /*Save buttons*/
+.save {
+  margin-top: 2px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .save-button {
   background-color:black;
   border: none;
@@ -81,11 +86,24 @@ h2 {
   margin: 4px 2px;
   cursor: pointer;
   font: greetingFont;
-  
+  width: 110px;
 }
 
 #sessions-body {
-  max-height: 174px;
+  max-height: 150px;
   overflow: scroll;
+  padding: 0px 20px 10px 20px;
+  justify-content: center;
 }
 
+#tab {
+  color: black;
+  border: none;
+  background-color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  height: 40px;
+  justify-self: center;
+}
