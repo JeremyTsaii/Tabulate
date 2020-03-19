@@ -25,12 +25,11 @@ function refresh_popup(state) {
   div.innerHTML = state;
   let new_state = div.firstChild;
 
-  // // Remove current popup
+  // // Remove current sessions-body div
   // var old_sessions = document.getElementById("sessions-body");
   // old_sessions.removeChild(old_sessions);
 
   // Append state into correct position
-  /// state.id = "sessions-body";
   let anchor = document.getElementById("sessions"); // Reference point for insertion
   anchor.appendChild(new_state);
 }
@@ -82,13 +81,11 @@ function add_row(name) {
   menu.appendChild(div);
 
   // Create event listener for clicking on row session
-
+  // div.addEventListener("click", open_session);
 
   // Update previous state in chrome.storage
   let new_state = document.getElementById("sessions-body");
-
   chrome.storage.sync.set({"prev_state": new_state.outerHTML});
-
 
   // Update names array in chrome.storage
   chrome.storage.sync.get("names_arr", function(arr) {
@@ -107,6 +104,11 @@ function prompt_name() {
 
 }
 
+// Loop through and open all tabs
+function open_session() {
+  alert("test");
+}
+
 // Right click on row to rename
 
 
@@ -118,7 +120,7 @@ function prompt_name() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Only create event listeners and restore popup after DOM has loaded
-document.addEventListener('DOMContentLoaded', restore_user);
+document.addEventListener("DOMContentLoaded", restore_user);
 document.getElementById("tab").addEventListener("click", save_tab);
 document.getElementById("session").addEventListener("click", save_session);
 document.getElementById("settings").addEventListener("click", open_settings);
