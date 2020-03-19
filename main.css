@@ -96,7 +96,7 @@ h2 {
   justify-content: center;
 }
 
-#tab {
+.click-session {
   color: black;
   border: none;
   background-color: white;

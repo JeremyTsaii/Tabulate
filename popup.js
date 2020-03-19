@@ -6,7 +6,7 @@
 function restore_user() {
   // Restore popup HTML with previous state 
   chrome.storage.sync.get("prev_state", function(state) {
-    // State is null only upon download, only update if not null
+    // State is null only upon download, only update popup if not null
     if (state.prev_state != null) {
       // Delete current sessions-body
       document.getElementById("sessions-body").outerHTML = "";
@@ -59,13 +59,10 @@ function save_tab() {
       let url_arr = [tabs[0].url];
 
       // Prompt user for new session name
-      let name = "tab";
+      let name = prompt("Please enter a unique name for this session.");
 
       // Update session in chrome.storage
       chrome.storage.sync.set({[name]: url_arr});
-      chrome.storage.sync.get([name], function(item){
-        console.log(item[name]);
-      });
 
       // Update popup menu
       add_row(name);
@@ -84,13 +81,10 @@ function save_session() {
       });
 
       // Prompt user for new session name
-      let name = "tab";
+      let name = prompt("Please enter a unique name for this session.");
 
       // Update session in chrome.storage
       chrome.storage.sync.set({[name]: url_arr});
-      chrome.storage.sync.get([name], function(item){
-        console.log(item[name]);
-      });
 
       // Update popup menu
       add_row(name);
