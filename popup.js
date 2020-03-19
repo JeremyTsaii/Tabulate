@@ -8,7 +8,17 @@ function restore_user() {
   chrome.storage.sync.get("prev_state", function(state) {
     // State is null only upon download, only update if not null
     if (state.prev_state != null) {
-      refresh_popup(state.prev_state);
+      // Delete current sessions-body
+      document.getElementById("sessions-body").outerHTML = "";
+
+      // Make dummy div to store inner HTML
+      let div = document.createElement("div");
+      div.innerHTML = state.prev_state;
+      let new_state = div.firstChild;
+
+      // Append state into correct position
+      let anchor = document.getElementById("sessions"); // Reference point for insertion
+      anchor.appendChild(new_state);
     }
   });
 
@@ -16,22 +26,13 @@ function restore_user() {
   chrome.storage.sync.get("preference_arr", function(arr) {
     
   });
-}
 
-// Clear current popup HTML and replace with new state
-function refresh_popup(state) {
-  // Make dummy div to store inner HTML
-  let div = document.createElement("div");
-  div.innerHTML = state;
-  let new_state = div.firstChild;
-
-  // // Remove current sessions-body div
-  // var old_sessions = document.getElementById("sessions-body");
-  // old_sessions.removeChild(old_sessions);
-
-  // Append state into correct position
-  let anchor = document.getElementById("sessions"); // Reference point for insertion
-  anchor.appendChild(new_state);
+  // Event listener for clicking to open session
+  let elements = document.getElementsByClassName("click-session");
+  for (let i = 0; i < elements.length; i++) {
+    alert("added");
+    elements[i].addEventListener("click", open_session);
+  }
 }
 
 // Saving current tab and updating popup
@@ -40,16 +41,15 @@ function save_tab() {
   chrome.tabs.query({
     active: true, currentWindow: true
   }, function(tabs) {
-      console.log(tabs);
-      let tab = tabs[0];
-      let url = [tab.url];
+      let url_arr = [tabs[0].url];
+
       // Prompt user for new session name
       let name = "tab";
 
       // Update session in chrome.storage
-      chrome.storage.sync.set({[name]: url});
+      chrome.storage.sync.set({[name]: url_arr});
       chrome.storage.sync.get([name], function(item){
-        console.log(item[name]);
+        alert(item[name]);
       });
 
       // Update popup menu
@@ -60,9 +60,26 @@ function save_tab() {
 // Saving current session (all tabs of window)
 function save_session() {
   // Get all urls of user's current window
+  chrome.tabs.query({
+    active: true, currentWindow: true
+  }, function(tabs) {
+      let url_arr = [];
+      tabs.forEach(function(tab) {
+        alert(tab.url);
+        url_arr.push(tab.url)
+      });
+      // Prompt user for new session name
+      let name = "tab";
 
-  // Prompt user for new session name
-  alert("session pressed");
+      // Update session in chrome.storage
+      chrome.storage.sync.set({[name]: url_arr});
+      chrome.storage.sync.get([name], function(item){
+        alert(item[name]);
+      });
+
+      // Update popup menu
+      add_row(name);
+  });
 }
 
 // Opening settings HTML page
@@ -78,10 +95,8 @@ function add_row(name) {
   let div = document.createElement("div");
   div.id = name;
   div.innerHTML = name;
+  div.className = "click-session";
   menu.appendChild(div);
-
-  // Create event listener for clicking on row session
-  // div.addEventListener("click", open_session);
 
   // Update previous state in chrome.storage
   let new_state = document.getElementById("sessions-body");
