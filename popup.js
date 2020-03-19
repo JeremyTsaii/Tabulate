@@ -119,6 +119,6 @@ function prompt_name() {
 
 // Only create event listeners and restore popup after DOM has loaded
 document.addEventListener('DOMContentLoaded', restore_user);
-document.getElementById("tab").addEventListener("click", save_tab);
-document.getElementById("session").addEventListener("click", save_session);
+document.getElementById("save-tab").addEventListener("click", save_tab);
+document.getElementById("save-session").addEventListener("click", save_session);
 document.getElementById("settings").addEventListener("click", open_settings);
