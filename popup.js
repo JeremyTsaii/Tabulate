@@ -49,7 +49,7 @@ function save_tab() {
       // Update session in chrome.storage
       chrome.storage.sync.set({[name]: url_arr});
       chrome.storage.sync.get([name], function(item){
-        alert(item[name]);
+        console.log(item[name]);
       });
 
       // Update popup menu
@@ -61,20 +61,20 @@ function save_tab() {
 function save_session() {
   // Get all urls of user's current window
   chrome.tabs.query({
-    active: true, currentWindow: true
+    currentWindow: true
   }, function(tabs) {
       let url_arr = [];
       tabs.forEach(function(tab) {
-        alert(tab.url);
         url_arr.push(tab.url)
       });
+
       // Prompt user for new session name
       let name = "tab";
 
       // Update session in chrome.storage
       chrome.storage.sync.set({[name]: url_arr});
       chrome.storage.sync.get([name], function(item){
-        alert(item[name]);
+        console.log(item[name]);
       });
 
       // Update popup menu
