@@ -42,8 +42,6 @@ h2 {
   border-radius: 0px 0px 30px 30px;
 }
 
-
-
 /*Settings button*/
 .settings-button {
   margin-left: 30px;
@@ -111,4 +109,14 @@ h2 {
   cursor: pointer;
   height: 40px;
   justify-self: center;
+}
+
+/*Edit buttons*/
+.edit-button {
+
+}
+
+/*Delete buttons*/
+.del-button {
+  
 }
