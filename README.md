@@ -4,6 +4,8 @@ Tabulate is a Google Chrome Extension that is meant to help users who often leav
 
 Check it out on the Chrome Web Store here.
 
+![alt text](https://github.com/JeremyTsaii/Images/blob/master/meme.JPG)
+
 ### Using Tabulate
 
 To open the Tabulate menu, click on the Tabulate icon in the upper right corner of Chrome. 
