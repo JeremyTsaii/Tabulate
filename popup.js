@@ -107,13 +107,13 @@ function open_settings() {
 
 // Add a session row into the popup menu
 function add_row(name) {
-  // Inject row into popup
+  // Inject row into top of the popup
   let menu = document.getElementById("sessions-body");
   let div = document.createElement("div");
   div.id = name;
   div.innerHTML = name;
   div.className = "click-session";
-  menu.appendChild(div);
+  menu.insertBefore(div, menu.firstChild);
 
   // Update previous state in chrome.storage
   let new_state = document.getElementById("sessions-body");
@@ -140,7 +140,6 @@ function prompt_name(arr) {
     let same = false;
    
     // Check if name already exists in name array
-    alert(arr);
     for (let i = 0; i < arr.length; i++) {
       // If name already exists, ask user for new name
       if (arr[i] == name) {
