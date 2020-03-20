@@ -29,13 +29,17 @@ h2 {
   font-size: 30px;
   text-align: center;
   font-family: greetingFont;
+  margin: 0;
 }
 
 .title {
+  height: 50px;
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 0px;
+  border-radius: 0px 0px 30px 30px;
 }
 
 
@@ -89,6 +93,7 @@ h2 {
   width: 110px;
 }
 
+/*Saved Sessions*/
 #sessions-body {
   max-height: 150px;
   overflow: scroll;
