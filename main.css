@@ -103,11 +103,12 @@ h2 {
   border: none;
   background-color: white;
   border-radius: 10px;
-  text-decoration: none;
   margin: 4px 2px;
   cursor: pointer;
   height: 40px;
   justify-self: center;
+  line-height: 40px;
+  padding-left: 10px;
 }
 
 /*Edit buttons*/
