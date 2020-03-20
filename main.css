@@ -54,11 +54,10 @@ h2 {
   font-size: 12px;
   cursor: pointer;
   transition: all 0.5s;
+  opacity: 0.8;
 }
 
-/* .settings-button {
-  background: #ff4dff;
-} */
+.settings-button:hover {opacity: 1}
 
 .rotate:hover {
    transform: rotate(360deg);
@@ -88,7 +87,11 @@ h2 {
   cursor: pointer;
   font: greetingFont;
   width: 110px;
+  opacity: 0.8;
+  transition: 0.3s;
 }
+
+.save-button:hover {opacity: 1}
 
 /*Saved Sessions*/
 #sessions-body {
@@ -109,26 +112,44 @@ h2 {
   justify-self: center;
   line-height: 40px;
   padding-left: 10px;
+  opacity: 0.8;
+  transition: 0.3s;
 }
+
+.click-session:hover {opacity: 1}
 
 /*Edit buttons*/
 .edit-button {
   cursor: pointer;
-  height: 30px;
-  width: 30px;
+  height: 34px;
+  width: 34px;
   position: relative;
-  left: -2px;
-  top: 5px;
+  left: -5px;
+  top: 4px;
   float: right;
+  background-color: white;
+  color: #1ad1ff;
+  border: none;
+  opacity: 0.6;
+  transition: 0.3s;
 }
+
+.edit-button:hover {opacity: 1}
 
 /*Delete buttons*/
 .del-button {
   cursor: pointer;
-  height: 30px;
-  width: 30px;
+  height: 34px;
+  width: 34px;
   position: relative;
-  left: 0px;
-  top: 5px;
+  left: -5px;
+  top: 3px;
   float: right;
+  background-color: white;
+  color: #ff0080;
+  border: none;
+  opacity: 0.6;
+  transition: 0.3s;
 }
+
+.del-button:hover {opacity: 1}
