@@ -40,11 +40,11 @@ function add_listener() {
       let id = obj.id;
       chrome.storage.sync.get([id], function(val) {
         let arr = val[id];
-        for (var i = 0; i<arr.length;i++){
+        arr.forEach(function(val) {
           chrome.tabs.create({
-            url: arr[i]
+            url: val
           });
-        }
+        });
       });
     }
   });
@@ -58,14 +58,18 @@ function save_tab() {
   }, function(tabs) {
       let url_arr = [tabs[0].url];
 
-      // Prompt user for new session name
-      let name = prompt("Please enter a unique name for this session.");
+      // Retrieve name array from chrome.storage
+      chrome.storage.sync.get("names_arr", function(val) {
+        let arr = val.names_arr;
+        // Prompt user for new session name
+        name = prompt_name(arr);
 
-      // Update session in chrome.storage
-      chrome.storage.sync.set({[name]: url_arr});
+        // Update session in chrome.storage
+        chrome.storage.sync.set({[name]: url_arr});
 
-      // Update popup menu
-      add_row(name);
+        // Update popup menu
+        add_row(name);
+      });
   });
 }
 
@@ -80,14 +84,18 @@ function save_session() {
         url_arr.push(tab.url)
       });
 
-      // Prompt user for new session name
-      let name = prompt("Please enter a unique name for this session.");
+      // Retrieve name array from chrome.storage
+      chrome.storage.sync.get("names_arr", function(val) {
+        let arr = val.names_arr;
+        // Prompt user for new session name
+        name = prompt_name(arr);
 
-      // Update session in chrome.storage
-      chrome.storage.sync.set({[name]: url_arr});
+        // Update session in chrome.storage
+        chrome.storage.sync.set({[name]: url_arr});
 
-      // Update popup menu
-      add_row(name);
+        // Update popup menu
+        add_row(name);
+      });
   });
 }
 
@@ -115,17 +123,37 @@ function add_row(name) {
   chrome.storage.sync.get("names_arr", function(arr) {
     let names_arr = arr.names_arr;
     names_arr.push(name);
-    chrome.storage.sync.set({names_arr: names_arr});
+    chrome.storage.sync.set({"names_arr": names_arr});
   });
 }
 
 // Show form for session name
-function prompt_name() {
-  
-  
-  // Check if name already exists in name array
+function prompt_name(arr) {
+  let name = "";
+  let cont = true;
 
-
+  while(cont) {
+    // Prompt for user input
+    name = prompt("Please enter a unique name for this session.");
+    
+    // Boolean to keep track of finding duplicate name
+    let same = false;
+   
+    // Check if name already exists in name array
+    alert(arr);
+    for (let i = 0; i < arr.length; i++) {
+      // If name already exists, ask user for new name
+      if (arr[i] == name) {
+        alert("Session name already exists. Please enter a different name.");
+        same = true;
+        break;
+      }
+    }
+    // If name does not match any preexisting names, return name
+    if (!same) {
+      return name;
+    }
+  }
 }
 
 // Right click on row to rename
