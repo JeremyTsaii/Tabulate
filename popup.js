@@ -50,6 +50,25 @@ function add_listener() {
   });
 }
 
+// General save function called by save_tab and save_session
+function save(url_arr) {
+  // Retrieve name array from chrome.storage
+  chrome.storage.sync.get("names_arr", function(val) {
+    let arr = val.names_arr;
+    // Prompt user for new session name
+    name = prompt_name(arr);
+    
+    // Only add row or update if user did not press cancel
+    if (name !== "null") {
+      // Update session in chrome.storage
+      chrome.storage.sync.set({[name]: url_arr});
+
+      // Update popup menu
+      add_row(name);
+    }
+  });
+}
+
 // Saving current tab and updating popup
 function save_tab() {
   // Get url of user's current tab
@@ -58,20 +77,10 @@ function save_tab() {
   }, function(tabs) {
       let url_arr = [tabs[0].url];
 
-      // Retrieve name array from chrome.storage
-      chrome.storage.sync.get("names_arr", function(val) {
-        let arr = val.names_arr;
-        // Prompt user for new session name
-        name = prompt_name(arr);
-
-        // Update session in chrome.storage
-        chrome.storage.sync.set({[name]: url_arr});
-
-        // Update popup menu
-        add_row(name);
-      });
-  });
-}
+      // Prompt user for input, update storage/popup
+      save(url_arr);
+    });
+  }
 
 // Saving current session (all tabs of window)
 function save_session() {
@@ -83,19 +92,9 @@ function save_session() {
       tabs.forEach(function(tab) {
         url_arr.push(tab.url)
       });
-
-      // Retrieve name array from chrome.storage
-      chrome.storage.sync.get("names_arr", function(val) {
-        let arr = val.names_arr;
-        // Prompt user for new session name
-        name = prompt_name(arr);
-
-        // Update session in chrome.storage
-        chrome.storage.sync.set({[name]: url_arr});
-
-        // Update popup menu
-        add_row(name);
-      });
+      
+      // Prompt user for input, update storage/popup
+      save(url_arr);
   });
 }
 
@@ -135,20 +134,25 @@ function prompt_name(arr) {
   while(cont) {
     // Prompt for user input
     name = prompt("Please enter a unique name for this session.");
-    
+
     // Boolean to keep track of finding duplicate name
     let same = false;
-   
+
     // Check if name already exists in name array
     for (let i = 0; i < arr.length; i++) {
-      // If name already exists, ask user for new name
-      if (arr[i] == name) {
+      // If name is empty string (pressed enter without any input), ask user for new name
+      if (name === "") {
+        alert("Please enter a non-empty name.");
+        same = true;
+        break;
+      } 
+      else if (arr[i] == name) {  // If name already exists, ask user for new name
         alert("Session name already exists. Please enter a different name.");
         same = true;
         break;
       }
     }
-    // If name does not match any preexisting names, return name
+    // If name does not match any preexisting names and is not empty, return name
     if (!same) {
       return name;
     }
