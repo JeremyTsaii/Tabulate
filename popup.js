@@ -112,6 +112,19 @@ function add_row(name) {
   div.id = name;
   div.innerHTML = name;
   div.className = "click-session";
+
+  // Edit button
+  let edit = document.createElement("button");
+  edit.id = "edit-" + name;
+  edit.className = "edit-button";
+  div.appendChild(edit);
+
+  // Delete button
+  let del = document.createElement("button");
+  del.id = "button-" + name;
+  del.className = "del-button";
+  div.appendChild(del);
+
   menu.insertBefore(div, menu.firstChild);
 
   // Update previous state in chrome.storage
@@ -140,30 +153,26 @@ function prompt_name(arr) {
 
     // Check if name already exists in name array
     for (let i = 0; i < arr.length; i++) {
-      // If name is empty string (pressed enter without any input), ask user for new name
-      if (name === "") {
-        alert("Please enter a non-empty name.");
-        same = true;
-        break;
-      } 
-      else if (arr[i] == name) {  // If name already exists, ask user for new name
+      // If name already exists, ask user for new name
+      if (arr[i] == name) {
         alert("Session name already exists. Please enter a different name.");
         same = true;
         break;
       }
     }
+    
+    // If name is empty string (pressed enter without any input), ask user for new name
+    if (name === "") {
+      alert("Please enter a non-empty name.");
+      same = true;
+    } 
+
     // If name does not match any preexisting names and is not empty, return name
     if (!same) {
       return name;
     }
   }
 }
-
-// Right click on row to rename
-
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //-------------------------------------Event Listeners-----------------------------------------------//
