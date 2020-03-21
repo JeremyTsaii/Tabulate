@@ -251,7 +251,10 @@ function prompt_name(arr) {
     if (name === "") {
       alert("Please enter a non-empty name.");
       same = true;
-    } 
+    } else if (name.length > 20) {
+      alert("Please enter a name with 20 characters or less.");
+      same = true;
+    }
 
     // If name does not match any preexisting names and is not empty, return name
     if (!same) {
