@@ -44,7 +44,9 @@ h2 {
 
 /*Settings button*/
 .settings-button {
-  margin-left: 30px;
+  z-index: 2;
+  position: fixed;
+  float: right;
   height: 30px;
   width: 70px;
   background: none; 
@@ -74,6 +76,7 @@ h2 {
   margin-top: 2px;
   display: flex;
   justify-content: space-evenly;
+  padding-bottom: 10px;
 }
 
 .save-button {
@@ -101,9 +104,10 @@ h2 {
 
 /*Saved Sessions*/
 #sessions-body {
-  max-height: 150px;
-  overflow: scroll;
-  padding: 0px 20px 10px 20px;
+  max-height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0px 20px 0px 20px;
   justify-content: center;
 }
 
@@ -118,7 +122,7 @@ h2 {
   justify-self: center;
   line-height: 40px;
   padding-left: 10px;
-  opacity: 0.8;
+  opacity: 0.9;
   transition: 0.3s;
 }
 
@@ -149,7 +153,7 @@ h2 {
   top: 4px;
   float: right;
   background-color: white;
-  color: #1ad1ff;
+  color: #0793b6;
   border: none;
   opacity: 0.6;
   transition: 0.3s;
