@@ -42,8 +42,8 @@ h2 {
   border-radius: 0px 0px 30px 30px;
 }
 
-/*Settings button*/
-.settings-button {
+/*Options button*/
+.options-button {
   z-index: 2;
   position: fixed;
   float: right;
@@ -59,7 +59,7 @@ h2 {
   opacity: 0.8;
 }
 
-.settings-button:hover {opacity: 1}
+.options-button:hover {opacity: 1}
 
 .rotate:hover {
    transform: rotate(360deg);

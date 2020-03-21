@@ -200,9 +200,8 @@ function save_window() {
   });
 }
 
-// Opening settings HTML page
-function open_settings() {
-  // Open settings html page
+// Opening options HTML page
+function open_options() {
   alert("settings pressed");
 }
 
@@ -309,5 +308,5 @@ function prompt_name(arr) {
 document.addEventListener("DOMContentLoaded", restore_user);
 document.getElementById("save-tab").addEventListener("click", save_tab);
 document.getElementById("save-window").addEventListener("click", save_window);
-document.getElementById("settings").addEventListener("click", open_settings);
+document.getElementById("options").addEventListener("click", open_options);
 
