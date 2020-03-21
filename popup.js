@@ -48,6 +48,12 @@ function add_listener() {
           });
         });
       });
+
+      // Update time last opened and prev_state
+      let time_span = document.getElementById(id + "time");
+      time_span.innerText = getTime();
+      let new_state = document.getElementById("sessions-body");
+      chrome.storage.sync.set({"prev_state": new_state.outerHTML});
     } // Edit session name
     else if (obj.className === "edit-button" || obj_parent.className === "edit-button") {
       let old_name = "";
@@ -188,12 +194,20 @@ function add_row(name) {
   // Inject row into top of the popup
   let menu = document.getElementById("sessions-body");
   let div = document.createElement("div");
-  let span = document.createElement("span");
-  span.id = name + "text"
-  span.innerText = name;
-  div.appendChild(span);
+  let text_span = document.createElement("span");
+  text_span.id = name + "text";
+  text_span.className = "text-span";
+  text_span.innerText = name;
+  div.appendChild(text_span);
   div.id = name;
   div.className = "click-session";
+
+  // Add current time to session row
+  let time_span = document.createElement("span");
+  time_span.id = name + "time";
+  time_span.className = "time-span";
+  time_span.innerText = getTime();
+  div.appendChild(time_span);
 
   // Delete button
   let del = document.createElement("button");
@@ -223,6 +237,11 @@ function add_row(name) {
     names_arr.push(name);
     chrome.storage.sync.set({"names_arr": names_arr});
   });
+}
+
+// Get time in correct format
+function getTime() {
+  return Date().toLocaleString().substring(0, 21);
 }
 
 // Show form for session name
