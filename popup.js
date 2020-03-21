@@ -42,11 +42,28 @@ function add_listener() {
       let id = obj.id;
       chrome.storage.sync.get([id], function(val) {
         let arr = val[id];
-        arr.forEach(function(val) {
-          chrome.tabs.create({
-            url: val
+        // Open tabs in new window
+        chrome.windows.create({focused: true}, function(win) {
+          arr.forEach(function(val) {
+            chrome.tabs.create({
+              url: val,
+              windowId: win.id
+            });
           });
+          // Close default new tab that comes with new window
+          chrome.tabs.query({
+            lastFocusedWindow: true
+          }, function(tabs) {
+              chrome.tabs.remove(tabs[0].id);
+            });
         });
+
+        // Open tabs in same window
+        // arr.forEach(function(val) {
+        //   chrome.tabs.create({
+        //     url: val
+        //   });
+        // });
       });
 
       // Update time last opened and prev_state
