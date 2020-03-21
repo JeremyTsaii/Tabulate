@@ -24,34 +24,35 @@ body {
 }
 
 /*Tabulate title*/
-h2 {
+.title-text {
   color: black;
   font-size: 30px;
-  text-align: center;
   font-family: greetingFont;
   margin: 0;
+  text-align: center;
+  align-self: center;
 }
 
 .title {
   height: 50px;
   background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-top: 0px;
   border-radius: 0px 0px 30px 30px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  position: relative;
 }
 
 /*Options button*/
 .options-button {
-  z-index: 2;
-  position: fixed;
-  float: right;
+  right: 0%;
+  position: absolute;
+  align-self: center;
   height: 30px;
   width: 70px;
-  background: none; 
-  color: white;
-  border-radius: 50px; 
+  border-style: none;
+  background: none;   
   font: greetingFont;
   font-size: 12px;
   cursor: pointer;
@@ -60,6 +61,10 @@ h2 {
 }
 
 .options-button:hover {opacity: 1}
+
+.options-button:active{
+  border-style: none;
+}
 
 .rotate:hover {
    transform: rotate(360deg);
@@ -182,6 +187,7 @@ h2 {
 /*Scrollbar*/
 ::-webkit-scrollbar {
   width: 12px;
+  scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar-track {
