@@ -33,10 +33,12 @@ function restore_user() {
 }
 
 function add_listener() {
-  // Loop through and open all tabs
   document.getElementById("sessions-body").addEventListener("click", function(e){
     let obj = e.target;
-    if (obj.className == "click-session") {
+    let obj_parent = obj.parentElement;
+    
+    // Loop through and open all tabs
+    if (obj.className === "click-session") {
       let id = obj.id;
       chrome.storage.sync.get([id], function(val) {
         let arr = val[id];
@@ -46,6 +48,83 @@ function add_listener() {
           });
         });
       });
+    } // Edit session name
+    else if (obj.className === "edit-button" || obj_parent.className === "edit-button") {
+      let old_name = "";
+      // obj_parent holds unique id
+      if (obj.className === "edit-button") {
+        old_name = obj_parent.id;
+      } else { // obj_parent's parent holds unique id
+        old_name = obj_parent.parentElement.id;
+      }
+
+      // Retrieve url array from chrome.storage under old name
+      chrome.storage.sync.get([old_name], function(item) {
+        let url_arr = item[old_name];
+        // Retrieve name array from chrome.storage
+        chrome.storage.sync.get("names_arr", function(val) {
+          let arr = val.names_arr;
+
+          // Prompt user for new session name
+          new_name = prompt_name(arr);
+          
+          // Only update name and id if user did not press cancel
+          if (new_name !== null) {
+            // Update session in chrome.storage
+            chrome.storage.sync.set({[new_name]: url_arr});
+
+            // Update name within name_arr in chrome.storage
+            // First remove old name and add new name
+            arr.splice(arr.indexOf(old_name));
+            arr.push(new_name);
+            chrome.storage.sync.set({"names_arr": arr});
+
+            // Update id of row
+            let row = document.getElementById(old_name);
+            row.id = new_name;
+
+            // Update text of span in row and id of span
+            let span = document.getElementById(old_name + "text");
+            span.innerText = new_name;
+            span.id = new_name + "text";
+
+            // Update previous state in chrome.storage
+            let new_state = document.getElementById("sessions-body");
+            chrome.storage.sync.set({"prev_state": new_state.outerHTML});
+          }
+        });
+      });
+    } // Delete session
+    else if (obj.className === "del-button" || obj_parent.className === "del-button") {
+      // Ask for confirmation
+      let bool = confirm("Are you sure you want to delete this session?");
+
+      if (bool) {
+        let old_name = "";
+        // obj_parent holds unique id
+        if (obj.className === "del-button") {
+          old_name = obj_parent.id;
+        } else { // obj_parent's parent holds unique id
+          old_name = obj_parent.parentElement.id;
+        }
+  
+        // Remove row from popup
+        let div = document.getElementById(old_name);
+        div.parentElement.removeChild(div);
+        
+        // Retrieve name array from chrome.storage
+        chrome.storage.sync.get("names_arr", function(val) {
+          let arr = val.names_arr;
+
+          // Remove name from name_arr in chrome.storage
+          arr.splice(arr.indexOf(old_name));
+          chrome.storage.sync.set({"names_arr": arr});
+
+          // Update previous state in chrome.storage
+          let new_state = document.getElementById("sessions-body");
+          chrome.storage.sync.set({"prev_state": new_state.outerHTML});
+        });
+      }
     }
   });
 }
@@ -109,21 +188,28 @@ function add_row(name) {
   // Inject row into top of the popup
   let menu = document.getElementById("sessions-body");
   let div = document.createElement("div");
+  let span = document.createElement("span");
+  span.id = name + "text"
+  span.innerText = name;
+  div.appendChild(span);
   div.id = name;
-  div.innerHTML = name;
   div.className = "click-session";
-
-  // Edit button
-  let edit = document.createElement("button");
-  edit.id = "edit-" + name;
-  edit.className = "edit-button";
-  div.appendChild(edit);
 
   // Delete button
   let del = document.createElement("button");
-  del.id = "button-" + name;
   del.className = "del-button";
+  let i2 = document.createElement("i");
+  i2.className = "fa fa-trash-o";
+  del.appendChild(i2);
   div.appendChild(del);
+
+  // Edit button
+  let edit = document.createElement("button");
+  edit.className = "edit-button";
+  let i1 = document.createElement("i");
+  i1.className = "fa fa-edit";
+  edit.appendChild(i1);
+  div.appendChild(edit);
 
   menu.insertBefore(div, menu.firstChild);
 
