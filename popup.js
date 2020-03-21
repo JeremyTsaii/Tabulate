@@ -129,7 +129,7 @@ function add_listener() {
   });
 }
 
-// General save function called by save_tab and save_session
+// General save function called by save_tab and save_window
 function save(url_arr) {
   // Retrieve name array from chrome.storage
   chrome.storage.sync.get("names_arr", function(val) {
@@ -161,8 +161,8 @@ function save_tab() {
     });
   }
 
-// Saving current session (all tabs of window)
-function save_session() {
+// Saving current window (all tabs of window)
+function save_window() {
   // Get all urls of user's current window
   chrome.tabs.query({
     currentWindow: true
@@ -267,6 +267,6 @@ function prompt_name(arr) {
 // Only create event listeners and restore popup after DOM has loaded
 document.addEventListener("DOMContentLoaded", restore_user);
 document.getElementById("save-tab").addEventListener("click", save_tab);
-document.getElementById("save-session").addEventListener("click", save_session);
+document.getElementById("save-window").addEventListener("click", save_window);
 document.getElementById("settings").addEventListener("click", open_settings);
 
