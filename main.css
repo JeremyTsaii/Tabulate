@@ -124,13 +124,28 @@ h2 {
 
 .click-session:hover {opacity: 1}
 
+/*Text Span*/
+.text-span {
+  font: greetingFont;
+  font-size: 15px;
+}
+
+/*Time Span*/
+.time-span {
+  position: relative;
+  right: 90px;
+  font: greetingFont;
+  font-size: 10px;
+  float: right;
+}
+
 /*Edit buttons*/
 .edit-button {
   cursor: pointer;
   height: 34px;
   width: 34px;
   position: relative;
-  left: -5px;
+  left: 90px;
   top: 4px;
   float: right;
   background-color: white;
@@ -148,7 +163,7 @@ h2 {
   height: 34px;
   width: 34px;
   position: relative;
-  left: -5px;
+  left: 90px;
   top: 3px;
   float: right;
   background-color: white;
