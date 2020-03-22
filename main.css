@@ -244,12 +244,11 @@ button:active {
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 22px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  align-items: center;
 }
 
 /* Hide the browser's default checkbox */
@@ -266,8 +265,8 @@ button:active {
   position: absolute;
   top: 0;
   left: 0;
-  height: 18px;
-  width: 18px;
+  height: 25px;
+  width: 25px;
   background-color: #eee;
 }
 
