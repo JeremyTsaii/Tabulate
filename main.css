@@ -36,7 +36,7 @@ body {
 
 .title {
   height: 65px;
-  background-image: linear-gradient(#009CFF,#057CC7);
+  background-image: linear-gradient(#00b8e6,#057CC7);
   margin-top: 0px;
   border-radius: 0px 0px 30px 30px;
   display: flex;
@@ -81,22 +81,24 @@ body {
 }
 
 .save-button {
-  border: 1px solid black;
+  border: none;
   background: none;
-  color: black;
+  color: white;
   padding: 10px 20px;
   border-radius: 25px;
   text-decoration: none;
   margin: 4px 2px;
   cursor: pointer;
   width: 130px;
-  opacity: 0.95;
-  transition: 0.3s;
+  opacity: 0.9;
+  transition: 0.2s;
   font-size: .75rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-image: linear-gradient(#00b8e6,#057CC7);
 }
 
 .save-button:hover {
-  background-color: #A1FFD6;
+  opacity: 1;
 }
 
 /*Sessions Title*/
@@ -136,12 +138,13 @@ body {
   justify-self: center;
   line-height: 40px;
   padding-left: 10px;
-  transition: 0.3s;
+  transition: 0.1s;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
 }
 
 .click-session:hover {
-  border: 1px solid #057CC7;
+  border: 1px solid #1ad1ff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
 }
 
 /*Text Span*/
@@ -169,7 +172,7 @@ body {
   top: 4px;
   float: right;
   background-color: white;
-  color: #0793b6;
+  color: #1a75ff;
   border: none;
   opacity: 0.6;
   transition: 0.3s;
@@ -224,7 +227,7 @@ button:active {
   outline: none;
 }
 
-/* -----------Options Window--------------*/
+/*-----------Options Window--------------*/
 
 .options-window {
   background-image: linear-gradient(#8080ff, #66b3ff);
