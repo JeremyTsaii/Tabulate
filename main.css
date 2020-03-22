@@ -15,8 +15,7 @@ html {
 }
 
 body {
-  background-color: #21D4FD;
-  background-image: linear-gradient(0deg, #057CC7 0%, #009CFF 100%);
+  background-image: linear-gradient(#8080ff, #66b3ff);
   margin: 0;
   padding: 0;
   width: 440px;
@@ -25,17 +24,19 @@ body {
 
 /*Tabulate title*/
 .title-text {
-  color: black;
-  font-size: 30px;
+  color: white;
+  font-size: 35px;
   font-family: greetingFont;
   margin: 0;
   text-align: center;
   align-self: center;
+  position: relative;
+  left: 15px;
 }
 
 .title {
   height: 50px;
-  background-color: white;
+  background-image: linear-gradient(to right, #99ebff, #ff4dff);
   margin-top: 0px;
   border-radius: 0px 0px 30px 30px;
   display: flex;
@@ -47,14 +48,14 @@ body {
 /*Options button*/
 .options-button {
   right: 0%;
-  position: absolute;
+  position: relative;
+  left: 120px;
+  top: 3px;
   align-self: center;
   height: 30px;
-  width: 70px;
+  width: 30px;
   border-style: none;
   background: none;   
-  font: greetingFont;
-  font-size: 12px;
   cursor: pointer;
   transition: all 0.5s;
   opacity: 0.8;
@@ -73,7 +74,7 @@ body {
 .rotate {
   transition: transform 0.5s ease 0s;
   display: inline-block;
-  color: #817F7F;
+  color: white;
 }
 
 /*Save buttons*/
@@ -81,12 +82,14 @@ body {
   margin-top: 2px;
   display: flex;
   justify-content: space-evenly;
-  padding-bottom: 10px;
+  padding-bottom: 3px;
 }
 
 .save-button {
   background-color:black;
   border: none;
+  border: 1px solid #80ffff;
+  background: none;
   color: white;
   padding: 10px 20px;
   border-radius: 25px;
@@ -103,8 +106,9 @@ body {
 
 /*Sessions Title*/
 #sessions-title {
-  padding-left: 10px;
+  padding-left: 25px;
   font: greetingFont;
+  color: white;
 }
 
 /*Saved Sessions*/
@@ -131,7 +135,10 @@ body {
   transition: 0.3s;
 }
 
-.click-session:hover {opacity: 1}
+.click-session:hover {
+  opacity: 1;
+  border: 2px solid #ff4dff;
+}
 
 /*Text Span*/
 .text-span {
