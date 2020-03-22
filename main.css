@@ -136,13 +136,11 @@ body {
   justify-self: center;
   line-height: 40px;
   padding-left: 10px;
-  opacity: 0.9;
   transition: 0.3s;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
 }
 
 .click-session:hover {
-  opacity: 1;
   border: 1px solid #057CC7;
 }
 
