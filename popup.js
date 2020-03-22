@@ -208,9 +208,15 @@ function save_window() {
 }
 
 // Opening options HTML page
-function open_options() {
-  alert("settings pressed");
-}
+// Linking to options page
+document.querySelector('#options').addEventListener("click", function() {
+  console.log('options pressed')
+  if (chrome.runtime.openOptionsPage) {
+    chrome.runtime.openOptionsPage();
+  } else {
+    window.open(chrome.runtime.getURL('./options.html'));
+  }
+});
 
 // Add a session row into the popup menu
 function add_row(name) {
@@ -329,5 +335,5 @@ function prompt_name(arr) {
 document.addEventListener("DOMContentLoaded", restore_user);
 document.getElementById("save-tab").addEventListener("click", save_tab);
 document.getElementById("save-window").addEventListener("click", save_window);
-document.getElementById("options").addEventListener("click", open_options);
+// document.getElementById("options").addEventListener("click", open_options);
 

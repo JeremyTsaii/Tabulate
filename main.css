@@ -221,3 +221,13 @@ button:hover {opacity: 1}
 button:active { 
   outline: none;
 }
+
+/* Options Window */
+
+.options-window {
+  background-image: linear-gradient(#8080ff, #66b3ff);
+  margin: 0;
+  padding: 0;
+  width: 440px;
+  height: 320px;
+}
