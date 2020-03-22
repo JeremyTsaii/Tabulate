@@ -10,7 +10,8 @@ chrome.runtime.onInstalled.addListener(function() {
   chrome.storage.sync.set({
     "prev_state": null,
     "preference_arr": [true, true, true],
-    "names_arr": []
+    "names_arr": [],
+    "num_sessions": 0
   });
 });
 
