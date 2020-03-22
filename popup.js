@@ -125,30 +125,49 @@ function add_listener() {
       let bool = confirm("Are you sure you want to delete this session?");
 
       if (bool) {
-        let old_name = "";
-        // obj_parent holds unique id
-        if (obj.className === "del-button") {
-          old_name = obj_parent.id;
-        } else { // obj_parent's parent holds unique id
-          old_name = obj_parent.parentElement.id;
-        }
+        chrome.storage.sync.get("num_sessions", function(num) {
+          // Decrement number of sessions
+          chrome.storage.sync.set({"num_sessions": num.num_sessions - 1}, function() {
+            // Update session counter
+            let num_sessions = num.num_sessions - 1;
+            let sessions_title = document.getElementById("sessions-title");
+            sessions_title.innerText = "Saved Sessions: " + num_sessions;
+
+            let old_name = "";
+            // obj_parent holds unique id
+            if (obj.className === "del-button") {
+              old_name = obj_parent.id;
+            } else { // obj_parent's parent holds unique id
+              old_name = obj_parent.parentElement.id;
+            }
   
-        // Remove row from popup
-        let div = document.getElementById(old_name);
-        div.parentElement.removeChild(div);
-        
-        // Retrieve name array from chrome.storage
-        chrome.storage.sync.get("names_arr", function(val) {
-          let arr = val.names_arr;
+            // Remove row from popup
+            let div = document.getElementById(old_name);
+            div.parentElement.removeChild(div);
+            
+            // If 0 session remaining, replace sessions-empty div
+            if (num_sessions === 0) {
+              let empty = document.createElement("div");
+              empty.id = "sessions-empty";
+              empty.innerText = "No saved sessions yet. Click on the save buttons above to get started!";
+              let anchor = document.getElementById("sessions");
+              anchor.appendChild(empty);
+            }
 
-          // Remove name from name_arr in chrome.storage
-          arr.splice(arr.indexOf(old_name));
-          chrome.storage.sync.set({"names_arr": arr});
+            // Retrieve name array from chrome.storage
+            chrome.storage.sync.get("names_arr", function(val) {
+              let arr = val.names_arr;
 
-          // Update previous state in chrome.storage
-          let new_state = document.getElementById("sessions-body");
-          chrome.storage.sync.set({"prev_state": new_state.outerHTML});
-        });
+              // Remove name from name_arr in chrome.storage
+              arr.splice(arr.indexOf(old_name));
+              chrome.storage.sync.set({"names_arr": arr});
+
+              // Update previous state in chrome.storage
+              let new_state = document.getElementById("sessions");
+              chrome.storage.sync.set({"prev_state": new_state.outerHTML});
+            });
+          });
+        }); 
       }
     }
   });
@@ -330,5 +349,4 @@ function prompt_name(arr) {
 document.addEventListener("DOMContentLoaded", restore_user);
 document.getElementById("save-tab").addEventListener("click", save_tab);
 document.getElementById("save-window").addEventListener("click", save_window);
-// document.getElementById("options").addEventListener("click", open_options);
 
