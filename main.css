@@ -98,9 +98,19 @@ body {
 
 /*Sessions Title*/
 #sessions-title {
-  padding-left: 25px;
+  position: relative;
+  left: 25px;
   font: greetingFont;
   color: white;
+}
+
+/*Empty Session Text*/
+#sessions-empty {
+  font: greetingFont;
+  color: white;
+  position: relative;
+  top: 10px;
+  left: 25px;
 }
 
 /*Saved Sessions*/

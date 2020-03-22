@@ -9,7 +9,7 @@ function restore_user() {
     // State is null only upon download, only update popup if not null
     if (state.prev_state != null) {
       // Delete current sessions-body
-      document.getElementById("sessions-body").outerHTML = "";
+      document.getElementById("sessions").outerHTML = "";
 
       // Make dummy div to store inner HTML
       let div = document.createElement("div");
@@ -17,7 +17,7 @@ function restore_user() {
       let new_state = div.firstChild;
 
       // Append state into correct position
-      let anchor = document.getElementById("sessions"); // Reference point for insertion
+      let anchor = document.getElementById("popup-body"); // Reference point for insertion
       anchor.appendChild(new_state);
     }
   });
@@ -36,10 +36,15 @@ function add_listener() {
   document.getElementById("sessions-body").addEventListener("click", function(e){
     let obj = e.target;
     let obj_parent = obj.parentElement;
-    
     // Loop through and open all tabs
     if (obj.className === "click-session" || obj.className === "text-span" || obj.className === "time-span") {
-      let id = obj.id;
+      let id = "";
+      if (obj.className === "click-session") {
+        id = obj.id;
+      } else if (obj.className === "text-span" || obj.className === "time-span") {
+        id = obj_parent.id;
+      }
+      
       chrome.storage.sync.get([id], function(val) {
         let arr = val[id];
         // Open tabs in new window
@@ -49,6 +54,8 @@ function add_listener() {
               url: val,
               windowId: win.id
             });
+          // Maximize window for user
+          chrome.windows.update(win.id, {state: "maximized"});
           });
           // Close default new tab that comes with new window
           chrome.tabs.query({
@@ -69,7 +76,7 @@ function add_listener() {
       // Update time last opened and prev_state
       let time_span = document.getElementById(id + "time");
       time_span.innerText = getTime();
-      let new_state = document.getElementById("sessions-body");
+      let new_state = document.getElementById("sessions");
       chrome.storage.sync.set({"prev_state": new_state.outerHTML});
     } // Edit session name
     else if (obj.className === "edit-button" || obj_parent.className === "edit-button") {
@@ -207,51 +214,67 @@ function open_options() {
 
 // Add a session row into the popup menu
 function add_row(name) {
-  // Inject row into top of the popup
-  let menu = document.getElementById("sessions-body");
-  let div = document.createElement("div");
-  let text_span = document.createElement("span");
-  text_span.id = name + "text";
-  text_span.className = "text-span";
-  text_span.innerText = name;
-  div.appendChild(text_span);
-  div.id = name;
-  div.className = "click-session";
+  // If no session saved, remove sessions-empty div
+  chrome.storage.sync.get("num_sessions", function(num) {
+    if (num.num_sessions === 0) {
+      let empty = document.getElementById("sessions-empty");
+      empty.parentElement.removeChild(empty);
+    }
+    // Increment number of sessions
+    chrome.storage.sync.set({"num_sessions": num.num_sessions + 1}, function() {
+      let num_sessions = num.num_sessions + 1;
 
-  // Add current time to session row
-  let time_span = document.createElement("span");
-  time_span.id = name + "time";
-  time_span.className = "time-span";
-  time_span.innerText = getTime();
-  div.appendChild(time_span);
+      // Inject row into top of the popup
+      let menu = document.getElementById("sessions-body");
+      let div = document.createElement("div");
+      let text_span = document.createElement("span");
+      text_span.id = name + "text";
+      text_span.className = "text-span";
+      text_span.innerText = name;
+      div.appendChild(text_span);
+      div.id = name;
+      div.className = "click-session";
 
-  // Delete button
-  let del = document.createElement("button");
-  del.className = "del-button";
-  let i2 = document.createElement("i");
-  i2.className = "fa fa-trash-o";
-  del.appendChild(i2);
-  div.appendChild(del);
+      // Add current time to session row
+      let time_span = document.createElement("span");
+      time_span.id = name + "time";
+      time_span.className = "time-span";
+      time_span.innerText = getTime();
+      div.appendChild(time_span);
 
-  // Edit button
-  let edit = document.createElement("button");
-  edit.className = "edit-button";
-  let i1 = document.createElement("i");
-  i1.className = "fa fa-edit";
-  edit.appendChild(i1);
-  div.appendChild(edit);
+      // Delete button
+      let del = document.createElement("button");
+      del.className = "del-button";
+      let i2 = document.createElement("i");
+      i2.className = "fa fa-trash-o";
+      del.appendChild(i2);
+      div.appendChild(del);
 
-  menu.insertBefore(div, menu.firstChild);
+      // Edit button
+      let edit = document.createElement("button");
+      edit.className = "edit-button";
+      let i1 = document.createElement("i");
+      i1.className = "fa fa-edit";
+      edit.appendChild(i1);
+      div.appendChild(edit);
 
-  // Update previous state in chrome.storage
-  let new_state = document.getElementById("sessions-body");
-  chrome.storage.sync.set({"prev_state": new_state.outerHTML});
+      // Update sessions counter display
+      let sessions_title = document.getElementById("sessions-title");
+      sessions_title.innerText = "Saved Sessions: " + num_sessions;
 
-  // Update names array in chrome.storage
-  chrome.storage.sync.get("names_arr", function(arr) {
-    let names_arr = arr.names_arr;
-    names_arr.push(name);
-    chrome.storage.sync.set({"names_arr": names_arr});
+      menu.insertBefore(div, menu.firstChild);
+
+      // Update previous state in chrome.storage
+      let new_state = document.getElementById("sessions");
+      chrome.storage.sync.set({"prev_state": new_state.outerHTML});
+
+      // Update names array in chrome.storage
+      chrome.storage.sync.get("names_arr", function(arr) {
+        let names_arr = arr.names_arr;
+        names_arr.push(name);
+        chrome.storage.sync.set({"names_arr": names_arr});
+      });
+    });
   });
 }
 
@@ -297,8 +320,6 @@ function prompt_name(arr) {
     }
   }
 }
-
-//Add simplebar
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //-------------------------------------Event Listeners-----------------------------------------------//
