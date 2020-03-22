@@ -22,11 +22,6 @@ function restore_user() {
     }
   });
 
-  // Restore user preferences
-  chrome.storage.sync.get("preference_arr", function(arr) {
-    
-  });
-
   // Add event listener to session rows
   // Timeout to let popup load
   setTimeout(add_listener, 500);
