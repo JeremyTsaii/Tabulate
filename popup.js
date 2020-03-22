@@ -38,7 +38,7 @@ function add_listener() {
     let obj_parent = obj.parentElement;
     
     // Loop through and open all tabs
-    if (obj.className === "click-session") {
+    if (obj.className === "click-session" || obj.className === "text-span" || obj.className === "time-span") {
       let id = obj.id;
       chrome.storage.sync.get([id], function(val) {
         let arr = val[id];
