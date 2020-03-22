@@ -108,10 +108,14 @@ function add_listener() {
             let row = document.getElementById(old_name);
             row.id = new_name;
 
-            // Update text of span in row and id of span
-            let span = document.getElementById(old_name + "text");
-            span.innerText = new_name;
-            span.id = new_name + "text";
+            // Update text of text span in row and id of text span
+            let text_span = document.getElementById(old_name + "text");
+            text_span.innerText = new_name;
+            text_span.id = new_name + "text";
+
+            // Update id of time span
+            let time_span = document.getElementById(old_name + "time");
+            time_span.id = new_name + "time";
 
             // Update previous state in chrome.storage
             let new_state = document.getElementById("sessions-body");
