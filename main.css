@@ -61,11 +61,23 @@ body {
   opacity: 0.8;
 }
 
+.options-button:visited {
+  outline: none;
+}
+
+.options-button:focus {
+  outline: none;
+}
+
 .options-button:hover {opacity: 1}
 
-.options-button:active{
-  border-style: none;
+.options-button:active { 
+  outline: none;
 }
+
+
+
+
 
 .rotate:hover {
    transform: rotate(360deg);
