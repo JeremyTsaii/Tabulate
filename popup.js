@@ -41,9 +41,16 @@ function add_listener() {
       }
       
       chrome.storage.sync.get("preference_arr", function(pref_arr) {
-        let cur_win = pref_arr.preference_arr[3];
+        let cur_win = true;
         chrome.storage.sync.get([id], function(val) {
           let arr = val[id];
+          // Single tab
+          if (arr.length == 1) {
+            cur_win = pref_arr.preference_arr[3];
+          } else { // Multiple tabs
+            cur_win = pref_arr.preference_arr[4]
+          }
+
           // Open tabs in new window
           if (!cur_win) {
             chrome.windows.create({focused: true}, function(win) {
