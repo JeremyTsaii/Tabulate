@@ -40,32 +40,36 @@ function add_listener() {
         id = obj_parent.id;
       }
       
-      chrome.storage.sync.get([id], function(val) {
-        let arr = val[id];
-        // Open tabs in new window
-        chrome.windows.create({focused: true}, function(win) {
-          arr.forEach(function(val) {
-            chrome.tabs.create({
-              url: val,
-              windowId: win.id
+      chrome.storage.sync.get("preference_arr", function(pref_arr) {
+        let cur_win = pref_arr.preference_arr[3];
+        chrome.storage.sync.get([id], function(val) {
+          let arr = val[id];
+          // Open tabs in new window
+          if (!cur_win) {
+            chrome.windows.create({focused: true}, function(win) {
+              arr.forEach(function(val) {
+                chrome.tabs.create({
+                  url: val,
+                  windowId: win.id
+                });
+              // Maximize window for user
+              chrome.windows.update(win.id, {state: "maximized"});
+              });
+              // Close default new tab that comes with new window
+              chrome.tabs.query({
+                lastFocusedWindow: true
+              }, function(tabs) {
+                  chrome.tabs.remove(tabs[0].id);
+                });
             });
-          // Maximize window for user
-          chrome.windows.update(win.id, {state: "maximized"});
-          });
-          // Close default new tab that comes with new window
-          chrome.tabs.query({
-            lastFocusedWindow: true
-          }, function(tabs) {
-              chrome.tabs.remove(tabs[0].id);
+          } else { // Open tabs in current window
+            arr.forEach(function(val) {
+              chrome.tabs.create({
+                url: val
+              });
             });
+          }
         });
-
-        // Open tabs in same window
-        // arr.forEach(function(val) {
-        //   chrome.tabs.create({
-        //     url: val
-        //   });
-        // });
       });
 
       // Update time last opened and prev_state
