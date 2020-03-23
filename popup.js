@@ -27,193 +27,212 @@ function restore_user() {
   setTimeout(add_listener, 500);
 }
 
+// Event listener for clicking on different parts of a session row
 function add_listener() {
   document.getElementById("sessions-body").addEventListener("click", function(e){
     let obj = e.target;
     let obj_parent = obj.parentElement;
     // Loop through and open all tabs
     if (obj.className === "click-session" || obj.className === "text-span" || obj.className === "time-span") {
-      let id = "";
-      if (obj.className === "click-session") {
-        id = obj.id;
-      } else if (obj.className === "text-span" || obj.className === "time-span") {
-        id = obj_parent.id;
-      }
-      
-      chrome.storage.sync.get("preference_arr", function(pref_arr) {
-        let open_action = pref_arr.preference_arr[5];
-
-        // Close current tab
-        if (open_action === 2) {
-          chrome.tabs.query({
-            active: true, currentWindow: true
-          }, function(tabs) {
-            chrome.tabs.remove(tabs[0].id);
-          });
-        } else if (open_action === 3) { // Close all tabs
-          chrome.tabs.query({
-            currentWindow: true
-          }, function(tabs) {
-            setTimeout(function() {
-              tabs.forEach(function(tab) {
-                chrome.tabs.remove(tab.id);
-              });
-            }, 250);
-          });
-        }
-
-        let cur_win = true;
-        chrome.storage.sync.get([id], function(val) {
-          let arr = val[id];
-          // Single tab
-          if (arr.length == 1) {
-            cur_win = pref_arr.preference_arr[3];
-          } else { // Multiple tabs
-            cur_win = pref_arr.preference_arr[4]
-          }
-
-          // Open tabs in new window
-          if (!cur_win) {
-            chrome.windows.create({focused: true}, function(win) {
-              arr.forEach(function(val) {
-                chrome.tabs.create({
-                  url: val,
-                  windowId: win.id
-                });
-              // Maximize window for user
-              chrome.windows.update(win.id, {state: "maximized"});
-              });
-              // Close default new tab that comes with new window
-              chrome.tabs.query({
-                lastFocusedWindow: true
-              }, function(tabs) {
-                  chrome.tabs.remove(tabs[0].id);
-                });
-            });
-          } else { // Open tabs in current window
-            arr.forEach(function(val) {
-              chrome.tabs.create({
-                url: val
-              });
-            });
-          }
-        });
-      });
-
-      // Update time last opened and prev_state
-      let time_span = document.getElementById(id + "time");
-      time_span.innerText = getTime();
-      let new_state = document.getElementById("sessions");
-      chrome.storage.sync.set({"prev_state": new_state.outerHTML});
+      open(obj, obj_parent);
     } // Edit session name
     else if (obj.className === "edit-button" || obj_parent.className === "edit-button") {
-      let old_name = "";
-      // obj_parent holds unique id
-      if (obj.className === "edit-button") {
-        old_name = obj_parent.id;
-      } else { // obj_parent's parent holds unique id
-        old_name = obj_parent.parentElement.id;
-      }
-
-      // Retrieve url array from chrome.storage under old name
-      chrome.storage.sync.get([old_name], function(item) {
-        let url_arr = item[old_name];
-        // Retrieve name array from chrome.storage
-        chrome.storage.sync.get("names_arr", function(val) {
-          let arr = val.names_arr;
-
-          // Prompt user for new session name
-          new_name = prompt_name(arr);
-          
-          // Only update name and id if user did not press cancel
-          if (new_name !== null) {
-            // Update session in chrome.storage
-            chrome.storage.sync.set({[new_name]: url_arr});
-
-            // Update name within name_arr in chrome.storage
-            // First remove old name and add new name
-            arr.splice(arr.indexOf(old_name));
-            arr.push(new_name);
-            chrome.storage.sync.set({"names_arr": arr});
-
-            // Update id of row
-            let row = document.getElementById(old_name);
-            row.id = new_name;
-
-            // Update text of text span in row and id of text span 
-            let text_span = document.getElementById(old_name + "text");
-            text_span.innerText = new_name;
-            text_span.id = new_name + "text";
-
-            // Update id of time span
-            let time_span = document.getElementById(old_name + "time");
-            time_span.id = new_name + "time";
-
-            // Update previous state in chrome.storage
-            let new_state = document.getElementById("sessions-body");
-            chrome.storage.sync.set({"prev_state": new_state.outerHTML});
-          }
-        });
-      });
+      edit(obj, obj_parent);
     } // Delete session
     else if (obj.className === "del-button" || obj_parent.className === "del-button") {
-      chrome.storage.sync.get("preference_arr", function(arr) {
-        let conf = arr.preference_arr[0];
-        let bool = true;
-
-        // Ask for confirmation only if preference_arr has true value
-        if (conf) {
-          bool = confirm("Are you sure you want to delete this session?");
-        }
-
-        if (bool) {
-          chrome.storage.sync.get("num_sessions", function(num) {
-            // Decrement number of sessions
-            chrome.storage.sync.set({"num_sessions": num.num_sessions - 1}, function() {
-              // Update session counter
-              let num_sessions = num.num_sessions - 1;
-              let sessions_title = document.getElementById("sessions-title");
-              sessions_title.innerText = "Saved Sessions: " + num_sessions;
-
-              let old_name = "";
-              // obj_parent holds unique id
-              if (obj.className === "del-button") {
-                old_name = obj_parent.id;
-              } else { // obj_parent's parent holds unique id
-                old_name = obj_parent.parentElement.id;
-              }
-    
-              // Remove row from popup
-              let div = document.getElementById(old_name);
-              div.parentElement.removeChild(div);
-              
-              // If 0 session remaining, replace sessions-empty div
-              if (num_sessions === 0) {
-                let empty = document.createElement("div");
-                empty.id = "sessions-empty";
-                empty.innerText = "No saved sessions yet. Click on the save buttons above to get started!";
-                let anchor = document.getElementById("sessions");
-                anchor.appendChild(empty);
-              }
-
-              // Retrieve name array from chrome.storage
-              chrome.storage.sync.get("names_arr", function(val) {
-                let arr = val.names_arr;
-
-                // Remove name from name_arr in chrome.storage
-                arr.splice(arr.indexOf(old_name));
-                chrome.storage.sync.set({"names_arr": arr});
-
-                // Update previous state in chrome.storage
-                let new_state = document.getElementById("sessions");
-                chrome.storage.sync.set({"prev_state": new_state.outerHTML});
-              });
-            });
-          }); 
-        }
-      });
+      del(obj, obj_parent);
     }
   });
+}
+
+// Open tabs of session
+function open(obj, obj_parent) {
+  let id = "";
+  if (obj.className === "click-session") {
+    id = obj.id;
+  } else if (obj.className === "text-span" || obj.className === "time-span") {
+    id = obj_parent.id;
+  }
+  
+  chrome.storage.sync.get("preference_arr", function(pref_arr) {
+    let open_action = pref_arr.preference_arr[5];
+
+    // Close current tab
+    if (open_action === 2) {
+      chrome.tabs.query({
+        active: true, currentWindow: true
+      }, function(tabs) {
+        chrome.tabs.remove(tabs[0].id);
+      });
+    } else if (open_action === 3) { // Close all tabs
+      chrome.tabs.query({
+        currentWindow: true
+      }, function(tabs) {
+        setTimeout(function() {
+          tabs.forEach(function(tab) {
+            chrome.tabs.remove(tab.id);
+          });
+        }, 250);
+      });
+    }
+
+    let cur_win = true;
+    chrome.storage.sync.get([id], function(val) {
+      let arr = val[id];
+      // Single tab
+      if (arr.length == 1) {
+        cur_win = pref_arr.preference_arr[3];
+      } else { // Multiple tabs
+        cur_win = pref_arr.preference_arr[4]
+      }
+
+      // Open tabs in new window
+      if (!cur_win) {
+        chrome.windows.create({focused: true}, function(win) {
+          arr.forEach(function(val) {
+            chrome.tabs.create({
+              url: val,
+              windowId: win.id
+            });
+          // Maximize window for user
+          chrome.windows.update(win.id, {state: "maximized"});
+          });
+          // Close default new tab that comes with new window
+          chrome.tabs.query({
+            lastFocusedWindow: true
+          }, function(tabs) {
+              chrome.tabs.remove(tabs[0].id);
+            });
+        });
+      } else { // Open tabs in current window
+        arr.forEach(function(val) {
+          chrome.tabs.create({
+            url: val
+          });
+        });
+      }
+    });
+  });
+
+  // Update time last opened and prev_state
+  let time_span = document.getElementById(id + "time");
+  time_span.innerText = getTime();
+  update_state();
+}
+
+// Edit name of session
+function edit(obj, obj_parent) {
+  let old_name = "";
+  // obj_parent holds unique id
+  if (obj.className === "edit-button") {
+    old_name = obj_parent.id;
+  } else { // obj_parent's parent holds unique id
+    old_name = obj_parent.parentElement.id;
+  }
+
+  // Retrieve url array from chrome.storage under old name
+  chrome.storage.sync.get([old_name], function(item) {
+    let url_arr = item[old_name];
+    // Retrieve name array from chrome.storage
+    chrome.storage.sync.get("names_arr", function(val) {
+      let arr = val.names_arr;
+
+      // Prompt user for new session name
+      new_name = prompt_name(arr);
+      
+      // Only update name and id if user did not press cancel
+      if (new_name !== null) {
+        // Update session in chrome.storage
+        chrome.storage.sync.set({[new_name]: url_arr});
+
+        // Update name within name_arr in chrome.storage
+        // First remove old name and add new name
+        arr.splice(arr.indexOf(old_name));
+        arr.push(new_name);
+        chrome.storage.sync.set({"names_arr": arr});
+
+        // Update id of row
+        let row = document.getElementById(old_name);
+        row.id = new_name;
+
+        // Update text of text span in row and id of text span 
+        let text_span = document.getElementById(old_name + "text");
+        text_span.innerText = new_name;
+        text_span.id = new_name + "text";
+
+        // Update id of time span
+        let time_span = document.getElementById(old_name + "time");
+        time_span.id = new_name + "time";
+
+        // Update previous state in chrome.storage
+        update_state();
+      }
+    });
+  });
+}
+
+// Delete session
+function del(obj, obj_parent) {
+  chrome.storage.sync.get("preference_arr", function(arr) {
+    let conf = arr.preference_arr[0];
+    let bool = true;
+
+    // Ask for confirmation only if preference_arr has true value
+    if (conf) {
+      bool = confirm("Are you sure you want to delete this session?");
+    }
+
+    if (bool) {
+      chrome.storage.sync.get("num_sessions", function(num) {
+        // Decrement number of sessions
+        chrome.storage.sync.set({"num_sessions": num.num_sessions - 1}, function() {
+          // Update session counter
+          let num_sessions = num.num_sessions - 1;
+          let sessions_title = document.getElementById("sessions-title");
+          sessions_title.innerText = "Saved Sessions: " + num_sessions;
+
+          let old_name = "";
+          // obj_parent holds unique id
+          if (obj.className === "del-button") {
+            old_name = obj_parent.id;
+          } else { // obj_parent's parent holds unique id
+            old_name = obj_parent.parentElement.id;
+          }
+
+          // Remove row from popup
+          let div = document.getElementById(old_name);
+          div.parentElement.removeChild(div);
+          
+          // If 0 session remaining, replace sessions-empty div
+          if (num_sessions === 0) {
+            let empty = document.createElement("div");
+            empty.id = "sessions-empty";
+            empty.innerText = "No saved sessions yet. Click on the save buttons above to get started!";
+            let anchor = document.getElementById("sessions");
+            anchor.appendChild(empty);
+          }
+
+          // Retrieve name array from chrome.storage
+          chrome.storage.sync.get("names_arr", function(val) {
+            let arr = val.names_arr;
+
+            // Remove name from name_arr in chrome.storage
+            arr.splice(arr.indexOf(old_name));
+            chrome.storage.sync.set({"names_arr": arr});
+
+            // Update previous state in chrome.storage
+            update_state();
+          });
+        });
+      }); 
+    }
+  });
+}
+
+// Update previous state within chrome storage
+function update_state() {
+  let new_state = document.getElementById("sessions");
+  chrome.storage.sync.set({"prev_state": new_state.outerHTML});
 }
 
 // General save function called by save_tab and save_window
@@ -247,15 +266,7 @@ function save_tab() {
       save(url_arr);
 
       // Close current tab if preferences correspond
-      chrome.storage.sync.get("preference_arr", function(pref_arr) {
-        let close = pref_arr.preference_arr[1];
-
-        if (close) {
-          setTimeout(function() {
-            chrome.tabs.remove(tabs[0].id);
-          }, 500);
-        }
-      });
+      close(true, tabs);
     });
   }
 
@@ -274,22 +285,40 @@ function save_window() {
       save(url_arr);
 
       // Close current window if preferences correspond
-      chrome.storage.sync.get("preference_arr", function(pref_arr) {
-        let close = pref_arr.preference_arr[2];
+      close(false, tabs);
+  });
+}
 
-        if (close) {
-          setTimeout(function() {
-            tabs.forEach(function(tab) {
-              chrome.tabs.remove(tab.id);
-            });
-          }, 500);
-        }
-      });
+// Close current tab/window depending on parameter passed in
+// true for closing tab, false for closing window
+function close(bool, tabs) {
+  chrome.storage.sync.get("preference_arr", function(pref_arr) {
+    let close = true;
+
+    // Close current tab
+    if (bool) {
+      close = pref_arr.preference_arr[1];
+
+      if (close) {
+        setTimeout(function() {
+          chrome.tabs.remove(tabs[0].id);
+        }, 500);
+      }
+    } else { // Close current window
+      close = pref_arr.preference_arr[2];
+
+      if (close) {
+        setTimeout(function() {
+          tabs.forEach(function(tab) {
+            chrome.tabs.remove(tab.id);
+          });
+        }, 500);
+      }
+    }
   });
 }
 
 // Opening options HTML page
-// Linking to options page
 document.querySelector('#options').addEventListener("click", function() {
   console.log('options pressed')
   if (chrome.runtime.openOptionsPage) {
@@ -352,8 +381,7 @@ function add_row(name) {
       menu.insertBefore(div, menu.firstChild);
 
       // Update previous state in chrome.storage
-      let new_state = document.getElementById("sessions");
-      chrome.storage.sync.set({"prev_state": new_state.outerHTML});
+      update_state();
 
       // Update names array in chrome.storage
       chrome.storage.sync.get("names_arr", function(arr) {
