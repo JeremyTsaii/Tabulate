@@ -41,6 +41,27 @@ function add_listener() {
       }
       
       chrome.storage.sync.get("preference_arr", function(pref_arr) {
+        let open_action = pref_arr.preference_arr[5];
+
+        // Close current tab
+        if (open_action === 2) {
+          chrome.tabs.query({
+            active: true, currentWindow: true
+          }, function(tabs) {
+            chrome.tabs.remove(tabs[0].id);
+          });
+        } else if (open_action === 3) { // Close all tabs
+          chrome.tabs.query({
+            currentWindow: true
+          }, function(tabs) {
+            setTimeout(function() {
+              tabs.forEach(function(tab) {
+                chrome.tabs.remove(tab.id);
+              });
+            }, 250);
+          });
+        }
+
         let cur_win = true;
         chrome.storage.sync.get([id], function(val) {
           let arr = val[id];
