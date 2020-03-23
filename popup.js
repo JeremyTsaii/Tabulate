@@ -217,6 +217,17 @@ function save_tab() {
 
       // Prompt user for input, update storage/popup
       save(url_arr);
+
+      // Close current tab if preferences correspond
+      chrome.storage.sync.get("preference_arr", function(pref_arr) {
+        let close = pref_arr.preference_arr[1];
+
+        if (close) {
+          setTimeout(function() {
+            chrome.tabs.remove(tabs[0].id);
+          }, 500);
+        }
+      });
     });
   }
 
@@ -233,6 +244,19 @@ function save_window() {
       
       // Prompt user for input, update storage/popup
       save(url_arr);
+
+      // Close current window if preferences correspond
+      chrome.storage.sync.get("preference_arr", function(pref_arr) {
+        let close = pref_arr.preference_arr[2];
+
+        if (close) {
+          setTimeout(function() {
+            tabs.forEach(function(tab) {
+              chrome.tabs.remove(tab.id);
+            });
+          }, 500);
+        }
+      });
   });
 }
 
