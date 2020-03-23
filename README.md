@@ -30,6 +30,6 @@ Happy Tabulating!
 
 ### How Was This Developed?
 
-Tabulate is written in vanilla JavaScript, HTML, and CSS. It relies heavily on the Chrome Storage API to remember saved sessions and user preferences. Since the core functionality of Tabulate resides in the popup and the popup is continually opened/closed by the user, the popup must be restored by grabbing data from chrome storage. This is also true for the settings popup. 
+Tabulate is written in vanilla JavaScript, HTML, and CSS. It relies heavily on the Chrome Storage API to remember saved sessions and user preferences. Since the core functionality of Tabulate resides in the popup and the popup is continually opened/closed by the user, the popup must be restored by grabbing data from Chrome Storage. This is also true for the settings popup. 
 
 
