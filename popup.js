@@ -108,7 +108,7 @@ function add_listener() {
             let row = document.getElementById(old_name);
             row.id = new_name;
 
-            // Update text of text span in row and id of text span
+            // Update text of text span in row and id of text span 
             let text_span = document.getElementById(old_name + "text");
             text_span.innerText = new_name;
             text_span.id = new_name + "text";
@@ -125,54 +125,61 @@ function add_listener() {
       });
     } // Delete session
     else if (obj.className === "del-button" || obj_parent.className === "del-button") {
-      // Ask for confirmation
-      let bool = confirm("Are you sure you want to delete this session?");
+      chrome.storage.sync.get("preference_arr", function(arr) {
+        let conf = arr.preference_arr[0];
+        let bool = true;
 
-      if (bool) {
-        chrome.storage.sync.get("num_sessions", function(num) {
-          // Decrement number of sessions
-          chrome.storage.sync.set({"num_sessions": num.num_sessions - 1}, function() {
-            // Update session counter
-            let num_sessions = num.num_sessions - 1;
-            let sessions_title = document.getElementById("sessions-title");
-            sessions_title.innerText = "Saved Sessions: " + num_sessions;
+        // Ask for confirmation only if preference_arr has true value
+        if (conf) {
+          bool = confirm("Are you sure you want to delete this session?");
+        }
 
-            let old_name = "";
-            // obj_parent holds unique id
-            if (obj.className === "del-button") {
-              old_name = obj_parent.id;
-            } else { // obj_parent's parent holds unique id
-              old_name = obj_parent.parentElement.id;
-            }
-  
-            // Remove row from popup
-            let div = document.getElementById(old_name);
-            div.parentElement.removeChild(div);
-            
-            // If 0 session remaining, replace sessions-empty div
-            if (num_sessions === 0) {
-              let empty = document.createElement("div");
-              empty.id = "sessions-empty";
-              empty.innerText = "No saved sessions yet. Click on the save buttons above to get started!";
-              let anchor = document.getElementById("sessions");
-              anchor.appendChild(empty);
-            }
+        if (bool) {
+          chrome.storage.sync.get("num_sessions", function(num) {
+            // Decrement number of sessions
+            chrome.storage.sync.set({"num_sessions": num.num_sessions - 1}, function() {
+              // Update session counter
+              let num_sessions = num.num_sessions - 1;
+              let sessions_title = document.getElementById("sessions-title");
+              sessions_title.innerText = "Saved Sessions: " + num_sessions;
 
-            // Retrieve name array from chrome.storage
-            chrome.storage.sync.get("names_arr", function(val) {
-              let arr = val.names_arr;
+              let old_name = "";
+              // obj_parent holds unique id
+              if (obj.className === "del-button") {
+                old_name = obj_parent.id;
+              } else { // obj_parent's parent holds unique id
+                old_name = obj_parent.parentElement.id;
+              }
+    
+              // Remove row from popup
+              let div = document.getElementById(old_name);
+              div.parentElement.removeChild(div);
+              
+              // If 0 session remaining, replace sessions-empty div
+              if (num_sessions === 0) {
+                let empty = document.createElement("div");
+                empty.id = "sessions-empty";
+                empty.innerText = "No saved sessions yet. Click on the save buttons above to get started!";
+                let anchor = document.getElementById("sessions");
+                anchor.appendChild(empty);
+              }
 
-              // Remove name from name_arr in chrome.storage
-              arr.splice(arr.indexOf(old_name));
-              chrome.storage.sync.set({"names_arr": arr});
+              // Retrieve name array from chrome.storage
+              chrome.storage.sync.get("names_arr", function(val) {
+                let arr = val.names_arr;
 
-              // Update previous state in chrome.storage
-              let new_state = document.getElementById("sessions");
-              chrome.storage.sync.set({"prev_state": new_state.outerHTML});
+                // Remove name from name_arr in chrome.storage
+                arr.splice(arr.indexOf(old_name));
+                chrome.storage.sync.set({"names_arr": arr});
+
+                // Update previous state in chrome.storage
+                let new_state = document.getElementById("sessions");
+                chrome.storage.sync.set({"prev_state": new_state.outerHTML});
+              });
             });
-          });
-        }); 
-      }
+          }); 
+        }
+      });
     }
   });
 }
