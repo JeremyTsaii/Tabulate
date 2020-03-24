@@ -320,12 +320,7 @@ function close(bool, tabs) {
 
 // Opening options HTML page
 document.querySelector('#options').addEventListener("click", function() {
-  console.log('options pressed')
-  if (chrome.runtime.openOptionsPage) {
-    chrome.runtime.openOptionsPage();
-  } else {
-    window.open(chrome.runtime.getURL('./options.html'));
-  }
+  window.location.href = "options.html";
 });
 
 // Add a session row into the popup menu

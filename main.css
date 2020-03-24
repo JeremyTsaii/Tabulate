@@ -240,7 +240,7 @@ button:active {
   width: 360px;
   padding-left: 40px;
   padding-right: 40px;
-  max-height: 186px;
+  max-height: 220px;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -377,5 +377,24 @@ button:active {
 	height: 8px;
 	border-radius: 50%;
 	background: white;
+}
+
+#options-back {
+  color: white;
+  height: 0px;
+  width: 40px;
+  margin-left: 18px;
+  margin-bottom: 10px;
+}
+
+.option-title {
+  color: white;
+  font-size: 33px;
+  font-family: greetingFont;
+  margin: 0;
+  text-align: center;
+  align-self: center;
+  position: relative;
+  left: 31px;
 }
 
