@@ -103,7 +103,7 @@ open_window_option.addEventListener('change', function() {
     }
 });
 
-//Loop through radio options and call changeOptions to set preferences_arr value
+// Loop through radio options and call changeOptions to set preferences_arr value
 for(let j = 0, max = open_session_option.length; j < max; j++) {
     open_session_option[j].onclick = function() {
         if(open_session_option[j].checked) {
