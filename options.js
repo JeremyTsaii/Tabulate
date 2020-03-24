@@ -1,29 +1,50 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//-------------------------------------Options Logic-------------------------------------------------//
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Obtain html form elements
 let confirmation_option = document.getElementById("option-1-input");
 let close_tab_option = document.getElementById("option-2-input");
-let open_tab_option = document.getElementById("option-3-input");
-let open_window_option = document.getElementById("option-4-input");
-let open_session_option = document.getElementById("option-5-input");
+let close_window_option = document.getElementById("option-3-input");
+let open_tab_option = document.getElementById("option-4-input");
+let open_window_option = document.getElementById("option-5-input");
+let open_session_option = document.forms["option-6"].elements["radio"];
 
-// confirmation_option.checked = true;
-// close_tab_option.checked = false;
-// open_tab_option.checked = false;
-// open_window_option.checked = true;
-// open_session_option.checked = false;
+//Store checkbox options inside array
+let optionsList = [confirmation_option, close_tab_option, open_tab_option, open_window_option, close_window_option];
 
-let optionsList = [confirmation_option, close_tab_option, open_tab_option, open_window_option, open_session_option];
 
+// Update html from value from preference_arr
 setOption = () => {
     chrome.storage.sync.get("preference_arr", function(arr) {
         let preference_arr = arr.preference_arr;
-        for (var i = 0; i < 5; i++ ) {
+
+        //Set checkbox values in html to preference_arr
+        for (let i = 0; i < 5; i++ ) {
             optionsList[i].checked = preference_arr[i];
+        }
+
+        //Set radio value to preference_arr value
+        switch (preference_arr[5]) {
+            case 1:
+                open_session_option[0].checked = true;
+                break;
+            case 2:
+                open_session_option[1].checked = true;
+                break;
+            case 3:
+                open_session_option[2].checked = true;
+                break;
+            default:
+                break;
         }
     });
 }
 
+// Initialize function at startup
 setOption();
 
-
+// Set chrome.storage value to input
 changeOption = (key, val) => {
     chrome.storage.sync.get("preference_arr", function(arr) {
         let preference_arr = arr.preference_arr;
@@ -34,7 +55,8 @@ changeOption = (key, val) => {
     });
 };
 
-confirmation_option.addEventListener( 'change', function() {
+//
+confirmation_option.addEventListener('change', function() {
     if(this.checked) {
         changeOption(0, true);
     } else {
@@ -42,7 +64,7 @@ confirmation_option.addEventListener( 'change', function() {
     }
 });
 
-close_tab_option.addEventListener( 'change', function() {
+close_tab_option.addEventListener('change', function() {
     if(this.checked) {
         changeOption(1, true);
     } else {
@@ -50,7 +72,7 @@ close_tab_option.addEventListener( 'change', function() {
     }
 });
 
-open_tab_option.addEventListener( 'change', function() {
+close_window_option.addEventListener('change', function() {
     if(this.checked) {
         changeOption(2, true);
     } else {
@@ -58,7 +80,7 @@ open_tab_option.addEventListener( 'change', function() {
     }
 });
 
-open_window_option.addEventListener( 'change', function() {
+open_tab_option.addEventListener('change', function() {
     if(this.checked) {
         changeOption(3, true);
     } else {
@@ -66,12 +88,25 @@ open_window_option.addEventListener( 'change', function() {
     }
 });
 
-open_session_option.addEventListener( 'change', function() {
+open_window_option.addEventListener('change', function() {
     if(this.checked) {
         changeOption(4, true);
     } else {
         changeOption(4, false);
     }
 });
+
+for(let j = 0, max = open_session_option.length; j < max; j++) {
+    open_session_option[j].onclick = function() {
+        if(open_session_option[j].checked) {
+            changeOption(5, j+1);
+        } else {
+            changeOption(5, j+1);
+        }
+    }
+}
+
+
+
 
 
