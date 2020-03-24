@@ -1,12 +1,12 @@
 # Tabulate
 
+Check Tabulate out on the Chrome Web Store here.
+
+![Tabulate meme](https://github.com/JeremyTsaii/Images/blob/master/meme.JPG)
+
 Tabulate is a Google Chrome Extension that is meant to help users who often leave many Chrome tabs open. Chrome tabs are notorious for taking up your CPU and memory, but often users do not want to lose the the pages that they were looking at. Tabulate lets you save these tab sessions and easily reopen them without them being active and hogging up your resources!
 
 ![Tabulate popup](https://github.com/JeremyTsaii/Images/blob/master/popup.png)
-
-Check it out on the Chrome Web Store here.
-
-![Tabulate meme](https://github.com/JeremyTsaii/Images/blob/master/meme.JPG)
 
 ### Using Tabulate
 
@@ -22,11 +22,13 @@ To edit a sessino name, click on the blue pencil icon at the right side of the s
 
 To delete a session from Tabulate, click on the red trashcan icon at the right side of the session.
 
-To open settings, click on the gear icon. This will take you to a new tab containing the settings for Tabulate.
+To open settings, click on the gear icon. This will take you to a new page containing the settings for Tabulate.
 
 The default settings are to ask for confirmation before deleting a session, keep the tab(s) that you have just saved open, open session tabs in the current window, and do nothing after opening a session. These settings can be changed by navigating to the settings page and checking the appropriate boxes/buttons.
 
 Happy Tabulating!
+
+![Tabulate gif](https://gfycat.com/bossyshallowfugu)
 
 ### How Was This Developed?
 
