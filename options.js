@@ -11,7 +11,7 @@ let open_window_option = document.getElementById("option-5-input");
 let open_session_option = document.forms["option-6"].elements["radio"];
 
 //Store checkbox options inside array
-let optionsList = [confirmation_option, close_tab_option, open_tab_option, open_window_option, close_window_option];
+let optionsList = [confirmation_option, close_tab_option, close_window_option, open_tab_option, open_window_option];
 
 
 // Update html from value from preference_arr
@@ -55,7 +55,7 @@ changeOption = (key, val) => {
     });
 };
 
-//
+
 confirmation_option.addEventListener('change', function() {
     if(this.checked) {
         changeOption(0, true);
