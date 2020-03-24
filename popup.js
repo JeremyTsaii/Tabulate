@@ -319,7 +319,7 @@ function close(bool, tabs) {
 }
 
 // Opening options HTML page
-document.querySelector('#options').addEventListener("click", function() {
+document.getElementById('options').addEventListener("click", function() {
   window.location.href = "options.html";
 });
 
