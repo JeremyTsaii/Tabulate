@@ -32,4 +32,16 @@ Happy Tabulating!
 
 Tabulate is written in vanilla JavaScript, HTML, and CSS. It relies heavily on the Chrome Storage API to remember saved sessions and user preferences. Since the core functionality of Tabulate resides in the popup and the popup is continually opened/closed by the user, the popup must be restored by grabbing data from Chrome Storage. This is also true for the settings popup. 
 
+### Local Development and Contribution
+
+If you have any changes you would like us to implement, please submit an issue and we will look at it. If there is something you would like to implement yourself, feel free to submit a pull request. 
+
+Local development/testing:
+1. Clone this repository onto your machine
+2. Go to Google Chrome settings, then click on extensions
+3. Turn on Developer mode
+4. Click the "Load unpacked" button and select the Tabulate folder
+
+Now you can develop locally and see your changes live on the Tabulate extension.
+
 
