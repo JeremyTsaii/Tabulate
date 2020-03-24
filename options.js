@@ -36,6 +36,7 @@ setOption = () => {
                 open_session_option[2].checked = true;
                 break;
             default:
+                open_session_option[0].checked = true;
                 break;
         }
     });
