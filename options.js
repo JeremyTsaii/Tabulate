@@ -101,8 +101,6 @@ for(let j = 0, max = open_session_option.length; j < max; j++) {
     open_session_option[j].onclick = function() {
         if(open_session_option[j].checked) {
             changeOption(5, j+1);
-        } else {
-            changeOption(5, j+1);
         }
     }
 }
