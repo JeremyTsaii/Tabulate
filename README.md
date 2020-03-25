@@ -2,7 +2,7 @@
 
 Tabulate is a Google Chrome Extension that is meant to help users who often leave many Chrome tabs open. Chrome tabs are notorious for taking up your CPU and memory, but often users do not want to lose the the pages that they were looking at. Tabulate lets you save these tab sessions and easily reopen them without them being active and hogging up your resources! Treat it like a more sophisticated favorites/bookmarks application.
 
-Check Tabulate out on the Chrome Web Store [here.](https://chrome.google.com/webstore/detail/tabulate/hbabjcmngkoppjaibgbpdbbcfhhmakmo).
+Check Tabulate out on the Chrome Web Store [here.](https://chrome.google.com/webstore/detail/tabulate/hbabjcmngkoppjaibgbpdbbcfhhmakmo)
 
 ![Tabulate meme](https://github.com/JeremyTsaii/Images/blob/master/meme.JPG)
 
