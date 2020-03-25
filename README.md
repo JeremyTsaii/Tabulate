@@ -18,7 +18,7 @@ To save all the tabs in your current window, click on the "Save window" button a
 
 To open the tabs saved within a session, click on the corresponding session row.
 
-To edit a sessino name, click on the blue pencil icon at the right side of the session.
+To edit a session name, click on the blue pencil icon at the right side of the session.
 
 To delete a session from Tabulate, click on the red trashcan icon at the right side of the session.
 
