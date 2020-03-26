@@ -154,7 +154,16 @@ body {
 /*Time Span*/
 .time-span {
   position: relative;
-  right: 90px;
+  right: 120px;
+  font: greetingFont;
+  font-size: 10px;
+  float: right;
+}
+
+/*Count Span*/
+.count-span {
+  position: relative;
+  left: 20px;
   font: greetingFont;
   font-size: 10px;
   float: right;
@@ -166,8 +175,8 @@ body {
   height: 34px;
   width: 34px;
   position: relative;
-  left: 90px;
-  top: 4px;
+  left: 138px;
+  top: 5px;
   float: right;
   background-color: white;
   color: #1a75ff;
@@ -182,8 +191,8 @@ body {
   height: 34px;
   width: 34px;
   position: relative;
-  left: 90px;
-  top: 3px;
+  left: 135px;
+  top: 4px;
   float: right;
   background-color: white;
   color: #ff0080;
@@ -385,7 +394,7 @@ button:active {
   margin-bottom: 10px;
 }
 
-.option-title {
+.options-title {
   color: white;
   font-size: 33px;
   font-family: greetingFont;

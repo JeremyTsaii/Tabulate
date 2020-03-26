@@ -247,10 +247,10 @@ function save(url_arr) {
     // Only add row or update if user did not press cancel
     if (name !== "null") {
       // Update session in chrome.storage
-      chrome.storage.sync.set({[name]: url_arr});
-
-      // Update popup menu
-      add_row(name);
+      chrome.storage.sync.set({[name]: url_arr}, function() {
+        // Update popup menu
+        add_row(name, url_arr);
+      });
     }
   });
 }
@@ -325,7 +325,7 @@ document.getElementById("options").addEventListener("click", function() {
 });
 
 // Add a session row into the popup menu
-function add_row(name) {
+function add_row(name, url_arr) {
   // If no session saved, remove sessions-empty div
   chrome.storage.sync.get("num_sessions", function(num) {
     if (num.num_sessions === 0) {
@@ -353,6 +353,13 @@ function add_row(name) {
       time_span.className = "time-span";
       time_span.innerText = getTime();
       div.appendChild(time_span);
+
+      // Add links counter to session row
+      let count_span = document.createElement("span");
+      count_span.id = name + "count";
+      count_span.className = "count-span";
+      count_span.innerText = `| Tabs: ${url_arr.length}`;
+      div.appendChild(count_span);
 
       // Delete button
       let del = document.createElement("button");
