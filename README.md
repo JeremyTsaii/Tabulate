@@ -44,4 +44,13 @@ Local development/testing:
 
 Now you can develop locally and see your changes live on the Tabulate extension.
 
+### Planned Future Implementations
+
+* Sorting by name, date last opened
+* Change existing names array to dictionary for faster lookup
+* Ability to create folders/dividers
+* Ability to color code rows
+* Copy tabs from a session to another sessoin
+* Add specific tabs within a window to a session instead of only current window/tab
+* Search for sessions by name
 
