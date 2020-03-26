@@ -59,7 +59,7 @@ changeOption = (key, val) => {
 };
 
 // On checkbox update, value for confirmation option is changed
-confirmation_option.addEventListener('change', function() {
+confirmation_option.addEventListener("change", function() {
     if(this.checked) {
         changeOption(0, true);
     } else {
@@ -68,7 +68,7 @@ confirmation_option.addEventListener('change', function() {
 });
 
 // On checkbox update, value for close tab option is changed
-close_tab_option.addEventListener('change', function() {
+close_tab_option.addEventListener("change", function() {
     if(this.checked) {
         changeOption(1, true);
     } else {
@@ -77,7 +77,7 @@ close_tab_option.addEventListener('change', function() {
 });
 
 // On checkbox update, value for close window option is changed
-close_window_option.addEventListener('change', function() {
+close_window_option.addEventListener("change", function() {
     if(this.checked) {
         changeOption(2, true);
     } else {
@@ -86,7 +86,7 @@ close_window_option.addEventListener('change', function() {
 });
 
 // On checkbox update, value for open tab option is changed
-open_tab_option.addEventListener('change', function() {
+open_tab_option.addEventListener("change", function() {
     if(this.checked) {
         changeOption(3, true);
     } else {
@@ -95,7 +95,7 @@ open_tab_option.addEventListener('change', function() {
 });
 
 // On checkbox update, value for open window option is changed
-open_window_option.addEventListener('change', function() {
+open_window_option.addEventListener("change", function() {
     if(this.checked) {
         changeOption(4, true);
     } else {
@@ -111,6 +111,6 @@ for(let j = 0, max = open_session_option.length; j < max; j++) {
 }}}
 
 // Navigates back to popup.html on click
-close_window.addEventListener('click',() => {
+close_window.addEventListener("click",() => {
     window.location.href = "popup.html";
 })

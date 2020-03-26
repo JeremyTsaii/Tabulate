@@ -122,53 +122,54 @@ function open(obj, obj_parent) {
 
 // Edit name of session
 function edit(obj, obj_parent) {
-  let old_name = "";
-  // obj_parent holds unique id
-  if (obj.className === "edit-button") {
-    old_name = obj_parent.id;
-  } else { // obj_parent's parent holds unique id
-    old_name = obj_parent.parentElement.id;
-  }
+  window.location.href = "edit.html";
+  // let old_name = "";
+  // // obj_parent holds unique id
+  // if (obj.className === "edit-button") {
+  //   old_name = obj_parent.id;
+  // } else { // obj_parent's parent holds unique id
+  //   old_name = obj_parent.parentElement.id;
+  // }
 
-  // Retrieve url array from chrome.storage under old name
-  chrome.storage.sync.get([old_name], function(item) {
-    let url_arr = item[old_name];
-    // Retrieve name array from chrome.storage
-    chrome.storage.sync.get("names_arr", function(val) {
-      let arr = val.names_arr;
+  // // Retrieve url array from chrome.storage under old name
+  // chrome.storage.sync.get([old_name], function(item) {
+  //   let url_arr = item[old_name];
+  //   // Retrieve name array from chrome.storage
+  //   chrome.storage.sync.get("names_arr", function(val) {
+  //     let arr = val.names_arr;
 
-      // Prompt user for new session name
-      new_name = prompt_name(arr);
+  //     // Prompt user for new session name
+  //     new_name = prompt_name(arr);
       
-      // Only update name and id if user did not press cancel
-      if (new_name !== null) {
-        // Update session in chrome.storage
-        chrome.storage.sync.set({[new_name]: url_arr});
+  //     // Only update name and id if user did not press cancel
+  //     if (new_name !== null) {
+  //       // Update session in chrome.storage
+  //       chrome.storage.sync.set({[new_name]: url_arr});
 
-        // Update name within name_arr in chrome.storage
-        // First remove old name and add new name
-        arr.splice(arr.indexOf(old_name));
-        arr.push(new_name);
-        chrome.storage.sync.set({"names_arr": arr});
+  //       // Update name within name_arr in chrome.storage
+  //       // First remove old name and add new name
+  //       arr.splice(arr.indexOf(old_name));
+  //       arr.push(new_name);
+  //       chrome.storage.sync.set({"names_arr": arr});
 
-        // Update id of row
-        let row = document.getElementById(old_name);
-        row.id = new_name;
+  //       // Update id of row
+  //       let row = document.getElementById(old_name);
+  //       row.id = new_name;
 
-        // Update text of text span in row and id of text span 
-        let text_span = document.getElementById(old_name + "text");
-        text_span.innerText = new_name;
-        text_span.id = new_name + "text";
+  //       // Update text of text span in row and id of text span 
+  //       let text_span = document.getElementById(old_name + "text");
+  //       text_span.innerText = new_name;
+  //       text_span.id = new_name + "text";
 
-        // Update id of time span
-        let time_span = document.getElementById(old_name + "time");
-        time_span.id = new_name + "time";
+  //       // Update id of time span
+  //       let time_span = document.getElementById(old_name + "time");
+  //       time_span.id = new_name + "time";
 
-        // Update previous state in chrome.storage
-        update_state();
-      }
-    });
-  });
+  //       // Update previous state in chrome.storage
+  //       update_state();
+  //     }
+  //   });
+  // });
 }
 
 // Delete session
@@ -319,7 +320,7 @@ function close(bool, tabs) {
 }
 
 // Opening options HTML page
-document.getElementById('options').addEventListener("click", function() {
+document.getElementById("options").addEventListener("click", function() {
   window.location.href = "options.html";
 });
 
