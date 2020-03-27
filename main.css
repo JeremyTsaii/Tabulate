@@ -411,7 +411,7 @@ button:active {
   color: white;
   height: 0px;
   width: 40px;
-  margin-left: 18px;
+  margin-left: 70px;
   margin-bottom: 10px;
 }
 
@@ -423,5 +423,5 @@ button:active {
   text-align: center;
   align-self: center;
   position: relative;
-  left: 31px;
+  left: 60px;
 }
