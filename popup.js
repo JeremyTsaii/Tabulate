@@ -122,14 +122,15 @@ function open(obj, obj_parent) {
 
 // Edit name of session
 function edit(obj, obj_parent) {
+  let old_name = "";
+  // obj_parent holds unique id
+  if (obj.className === "edit-button") {
+    old_name = obj_parent.id;
+  } else { // obj_parent's parent holds unique id
+    old_name = obj_parent.parentElement.id;
+  }
+
   window.location.href = "edit.html";
-  // let old_name = "";
-  // // obj_parent holds unique id
-  // if (obj.className === "edit-button") {
-  //   old_name = obj_parent.id;
-  // } else { // obj_parent's parent holds unique id
-  //   old_name = obj_parent.parentElement.id;
-  // }
 
   // // Retrieve url array from chrome.storage under old name
   // chrome.storage.sync.get([old_name], function(item) {

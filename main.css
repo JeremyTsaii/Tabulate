@@ -405,3 +405,23 @@ button:active {
   left: 31px;
 }
 
+/*-----------Edit Window--------------*/
+
+#edit-back {
+  color: white;
+  height: 0px;
+  width: 40px;
+  margin-left: 18px;
+  margin-bottom: 10px;
+}
+
+.edit-title {
+  color: white;
+  font-size: 33px;
+  font-family: greetingFont;
+  margin: 0;
+  text-align: center;
+  align-self: center;
+  position: relative;
+  left: 31px;
+}
