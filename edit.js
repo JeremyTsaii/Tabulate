@@ -86,10 +86,8 @@ function edit_name(){
 
           // Get session rows
           let old_state = div.firstChild;
-          let sessions = old_state.childNodes;
-          alert(old_state.childNodes[1].innerHTML);
-          alert(old_state.childNodes[3].childNodes[0].innerHTML);
-          
+          let sessions = old_state.childNodes[3].childNodes;
+
           // Loop through session rows to find correct div
           let row = null;
           for (let i = 0; i < sessions.length; i++) {
@@ -103,21 +101,20 @@ function edit_name(){
           row.id = new_name;
 
           // Update text of text span in row and id of text span 
-          let text_span = div.getElementById(old_name + "text");
+          let text_span = row.childNodes[0];
           text_span.innerText = new_name;
           text_span.id = new_name + "text";
 
           // Update id of time span
-          let time_span = div.getElementById(old_name + "time");
+          let time_span = row.childNodes[1];
           time_span.id = new_name + "time";
 
           // Update id of count span
-          let count_span = div.getElementById(old_name + "count");
+          let count_span = row.childNodes[2];
           count_span.id = new_name + "count";
 
           // Update previous state in chrome.storage
-
-          chrome.storage.sync.set({"prev_state": new_state});
+          chrome.storage.sync.set({"prev_state": old_state.outerHTML});
 
           // Update edit title
           document.getElementById("edit-title").innerText = new_name;
