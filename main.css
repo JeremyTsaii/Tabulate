@@ -139,6 +139,7 @@ body {
   line-height: 40px;
   padding-left: 10px;
   transition: 0.1s;
+  overflow: hidden;
 }
 
 .click-session:hover {
@@ -154,7 +155,7 @@ body {
 /*Time Span*/
 .time-span {
   position: relative;
-  right: 120px;
+  right: 107px;
   font: greetingFont;
   font-size: 10px;
   float: right;
@@ -163,7 +164,7 @@ body {
 /*Count Span*/
 .count-span {
   position: relative;
-  left: 20px;
+  left: 26px;
   font: greetingFont;
   font-size: 10px;
   float: right;
@@ -175,7 +176,7 @@ body {
   height: 34px;
   width: 34px;
   position: relative;
-  left: 138px;
+  left: 136px;
   top: 5px;
   float: right;
   background-color: white;
@@ -191,7 +192,7 @@ body {
   height: 34px;
   width: 34px;
   position: relative;
-  left: 133px;
+  left: 128px;
   top: 4px;
   float: right;
   background-color: white;
@@ -407,14 +408,6 @@ button:active {
 
 /*-----------Edit Window--------------*/
 
-#edit-back {
-  color: white;
-  height: 0px;
-  width: 40px;
-  margin-left: 70px;
-  margin-bottom: 10px;
-}
-
 .edit-title {
   color: white;
   font-size: 33px;
@@ -424,4 +417,41 @@ button:active {
   align-self: center;
   position: relative;
   left: 60px;
+}
+
+#edit-back {
+  color: white;
+  height: 0px;
+  width: 40px;
+  margin-bottom: 10px;
+}
+
+.edit-name {
+  cursor: pointer;
+  height: 70px;
+  width: 70px;
+  position: relative;
+  right: 200px;
+  top: 2px;
+  float: left;
+  background: none;
+  color: white;
+  border: none;
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+.link-delete {
+  cursor: pointer;
+  height: 34px;
+  width: 34px;
+  position: relative;
+  left: 50px;
+  top: 4px;
+  float: right;
+  background: none;
+  color: #ff0080;
+  border: none;
+  opacity: 0.8;
+  transition: 0.3s;
 }

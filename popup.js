@@ -130,47 +130,9 @@ function edit(obj, obj_parent) {
     old_name = obj_parent.parentElement.id;
   }
 
-  window.location.href = "edit.html";
-
-  // // Retrieve url array from chrome.storage under old name
-  // chrome.storage.sync.get([old_name], function(item) {
-  //   let url_arr = item[old_name];
-  //   // Retrieve name array from chrome.storage
-  //   chrome.storage.sync.get("names_arr", function(val) {
-  //     let arr = val.names_arr;
-
-  //     // Prompt user for new session name
-  //     new_name = prompt_name(arr);
-      
-  //     // Only update name and id if user did not press cancel
-  //     if (new_name !== null) {
-  //       // Update session in chrome.storage
-  //       chrome.storage.sync.set({[new_name]: url_arr});
-
-  //       // Update name within name_arr in chrome.storage
-  //       // First remove old name and add new name
-  //       arr.splice(arr.indexOf(old_name));
-  //       arr.push(new_name);
-  //       chrome.storage.sync.set({"names_arr": arr});
-
-  //       // Update id of row
-  //       let row = document.getElementById(old_name);
-  //       row.id = new_name;
-
-  //       // Update text of text span in row and id of text span 
-  //       let text_span = document.getElementById(old_name + "text");
-  //       text_span.innerText = new_name;
-  //       text_span.id = new_name + "text";
-
-  //       // Update id of time span
-  //       let time_span = document.getElementById(old_name + "time");
-  //       time_span.id = new_name + "time";
-
-  //       // Update previous state in chrome.storage
-  //       update_state();
-  //     }
-  //   });
-  // });
+  chrome.storage.sync.set({"last_clicked": old_name}, function() {
+    window.location.href = "edit.html";
+  });
 }
 
 // Delete session
