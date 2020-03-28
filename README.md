@@ -14,11 +14,11 @@ To open the Tabulate popup menu, click on the Tabulate icon in the upper right c
 
 To save your current tab, click on the "Save Tab" button and choose a unique name for your session.
 
-To save all the tabs in your current window, click on the "Save window" button and choose a unique name for your session.
+To save all the tabs in your current window, click on the "Save Window" button and choose a unique name for your session.
 
 To open the tabs saved within a session, click on the corresponding session row.
 
-To edit a session name, click on the blue pencil icon at the right side of the session.
+To edit a session name, click on the blue pencil icon at the right side of the session. This will take you to a page showing all the links stored within the session. You can edit the name of the session by clicking the white pencil icon at the upper-left side of the page. You can also delete links by clicking the red trashcan icon at the right side of the link row and add the current tab to the session by clicking the plus icon at the upper-right side of the page.
 
 To delete a session from Tabulate, click on the red trashcan icon at the right side of the session.
 
