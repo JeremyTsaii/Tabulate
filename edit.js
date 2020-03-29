@@ -10,35 +10,39 @@ function set_rows() {
     // Retrieve url arry from chrome.storage under old name
     chrome.storage.sync.get([old_name], function(item) {
       let url_arr = item[old_name];
-      let body = document.getElementById("edit-body");
 
       // Update link title
       document.getElementById("link-title").innerText = `Saved Links: ${url_arr.length}`;
 
       // Insert links in url_arr as rows appended to edit-body 
-      url_arr.forEach(function(link) {
-        let div = document.createElement("div");
-        div.id = link;
-        div.innerText = link;
-        div.className = "click-session";
-        
-        // Delete button
-        let del = document.createElement("button");
-        del.className = "link-delete";
-        let i = document.createElement("i");
-        i.className = "fa fa-trash-o";
-        del.appendChild(i);
-        div.appendChild(del);
+      url_arr.forEach(append_link);
 
-        body.appendChild(div);
-
-        // Add event listener to session rows
-        // Timeout to let popup load
-      });
-
+      // Add event listener to session rows
+      // Timeout to let popup load
       setTimeout(add_listener, 500); 
     });
   });
+}
+
+function append_link(link) {
+  // Anchor for appending row
+  let body = document.getElementById("edit-body");
+
+  // Create row div
+  let div = document.createElement("div");
+  div.id = link;
+  div.innerText = link;
+  div.className = "click-session";
+  
+  // Delete button
+  let del = document.createElement("button");
+  del.className = "link-delete";
+  let i = document.createElement("i");
+  i.className = "fa fa-trash-o";
+  del.appendChild(i);
+  div.appendChild(del);
+
+  body.appendChild(div);
 }
 
 // Event listener for clicking on a link row
@@ -124,8 +128,6 @@ function edit_name(){
   });
 }
 
-
-
 // Show form for session name
 function prompt_name(arr) {
   let name = "";
@@ -164,6 +166,63 @@ function prompt_name(arr) {
   }
 }
 
+// Add current tab to session
+function add_link() {
+  // Get id to use for chrome storage
+  let name = document.getElementById("edit-title").innerText;
+
+  // Get array containing links of current session
+  chrome.storage.sync.get([name], function(arr) {
+    let url_arr = arr[name];
+
+    // Get current tab and add to url_arr
+    chrome.tabs.query({
+      active: true, currentWindow: true
+    }, function(tabs) {
+        let link = tabs[0].url;
+        url_arr.push(link);
+
+        // Update array of links in chrome storage
+        chrome.storage.sync.set({[name]: url_arr}, function() {
+          // Add row to edit screen
+          append_link(link);
+
+          // Update link counter
+          document.getElementById("link-title").innerText = `Saved Links: ${url_arr.length}`;
+
+          // Update prev_state tab counter
+          chrome.storage.sync.get("prev_state", function(state) {
+            // Make dummy div to store inner HTML
+            let div = document.createElement("div");
+            div.innerHTML = state.prev_state;
+
+            // Get session rows
+            let old_state = div.firstChild;
+            let sessions = old_state.childNodes[3].childNodes;
+
+            // Loop through session rows to find correct div
+            let row = null;
+            for (let i = 0; i < sessions.length; i++) {
+              if (sessions[i].id === name) {
+                row = sessions[i];
+                break;
+              }
+            }
+          
+          // Update tab counter of count span
+          let count_span = row.childNodes[2];
+          count_span.innerText = `| Tabs: ${url_arr.length}`;
+
+          // Update previous state in chrome.storage
+          chrome.storage.sync.set({"prev_state": old_state.outerHTML});
+          });
+        });
+
+            
+      });
+  });
+}
+
 set_rows();
 
 
@@ -178,3 +237,6 @@ document.getElementById("edit-back").addEventListener("click", () => {
 
 // Edit name of session on click of edit button
 document.getElementById("edit-name").addEventListener("click", edit_name);
+
+// Add current tab on click of plus button
+document.getElementById("add-link").addEventListener("click", add_link);
