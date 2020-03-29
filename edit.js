@@ -99,6 +99,7 @@ function del_link(obj_parent) {
           chrome.storage.sync.get("names_arr", function(arr) {
             let names_arr = arr.names_arr;
             names_arr.splice(names_arr.indexOf(name));
+            chrome.storage.sync.set({"names_arr": names_arr});
 
             // Update session counter
             chrome.storage.sync.get("num_sessions", function(num) {
