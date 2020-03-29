@@ -53,66 +53,110 @@ function add_listener() {
 
     // User clicked on link row
     if (obj.className === "click-session") {
-      // Open tab of corresponding link row
-      chrome.tabs.create({
-        url: obj.id
-      });
+      open_link(obj);
     } else if (obj.className === "link-delete" || obj.className === "fa fa-trash-o") { // Delete link row
-      chrome.storage.sync.get("preference_arr", function(arr) {
-        let conf = arr.preference_arr[0];
-        let bool = true;
-    
-        // Ask for confirmation only if preference_arr has true value
-        if (conf) {
-          bool = confirm("Are you sure you want to delete this session?");
-        }
-    
-        if (bool) {
-          let name = document.getElementById("edit-title").innerText;
-          let link = obj_parent.id;
+      del_link(obj_parent);
+    }
+  });
+}
 
-          // Remove link from array and update chrome storage
-          chrome.storage.sync.get([name], function(arr) {
-            let url_arr = arr[name];
-            url_arr.splice(url_arr.indexOf(link));
+// Open tab of corresponding link row
+function open_link(obj) {
+  chrome.tabs.create({
+    url: obj.id
+  });
+}
 
-            // If no more links, delete session 
-            if (url_arr.length === 0) {
-              // Remove session name from name_arr
-              chrome.storage.sync.get("name_arr", function(arr) {
-                let name_arr = arr.name_arr;
-                name_arr.splice(name_arr.indexOf(name));
+// Delete link row
+function del_link(obj_parent) {
+  chrome.storage.sync.get("preference_arr", function(arr) {
+    let conf = arr.preference_arr[0];
+    let bool = true;
 
-                // Update session counter
-                chrome.storage.sync.get("num_sessions", function(num) {
-                  chrome.storage.sync.set({"num_sessions": num.num_sessions - 1});
+    // Ask for confirmation only if preference_arr has true value
+    if (conf) {
+      bool = confirm("Are you sure you want to delete this link?");
+    }
 
-                  let num_sessions = num.num_sessions;
+    if (bool) {
+      let name = document.getElementById("edit-title").innerText;
+      let link = obj_parent.id;
+      let link2 = obj_parent.parentElement.id;
 
-                  // Remove session name from popup state
+      // Find correct link id depending on if icon or button was pressed
+      if (link.length === 0) {
+        link = link2;
+      }
+      
+      // Remove link from array and update chrome storage
+      chrome.storage.sync.get([name], function(arr) {
+        let url_arr = arr[name];
+        url_arr.splice(url_arr.indexOf(link));
 
-                  // Update session counter in popup state
+        // If no more links, delete session 
+        if (url_arr.length === 0) {
+          // Remove session name from name_arr
+          chrome.storage.sync.get("names_arr", function(arr) {
+            let names_arr = arr.names_arr;
+            names_arr.splice(names_arr.indexOf(name));
 
-                  // Replace session-empty div text if 0 sessions
-                  if (num_sessions === 0) {
+            // Update session counter
+            chrome.storage.sync.get("num_sessions", function(num) {
+              chrome.storage.sync.set({"num_sessions": num.num_sessions - 1});
 
+              let num_sessions = num.num_sessions - 1;
+              
+              // Update previous state
+              chrome.storage.sync.get("prev_state", function(state) {
+                // Make dummy div to store inner HTML
+                let div = document.createElement("div");
+                div.innerHTML = state.prev_state;
+          
+                // Get session rows
+                let old_state = div.firstChild;
+                let sessions = old_state.childNodes[3].childNodes;
+          
+                // Loop through session rows to find correct div
+                let row = null;
+                for (let i = 0; i < sessions.length; i++) {
+                  if (sessions[i].id === name) {
+                    row = sessions[i];
+                    break;
                   }
-                });
-              // Go back to main popup page
-              window.location.href = "popup.html";
+                }
+              
+              // Remove session name from popup state
+              row.outerHTML = "";
+
+              // Update session counter in popup state
+              let counter = old_state.childNodes[1];
+              counter.innerText = `Saved Sessions: ${num_sessions}`;
+
+              // Replace session-empty div text if 0 sessions
+              if (num_sessions === 0) {
+                let empty = document.createElement("div");
+                empty.id = "sessions-empty";
+                empty.innerText = "No saved sessions yet. Click on the save buttons above to get started!";
+                old_state.appendChild(empty);
+              }
+
+              // Update previous state in chrome.storage
+              chrome.storage.sync.set({"prev_state": old_state.outerHTML});
               });
-            } else {
-              // Delete row from edit page
-              let div = document.getElementById(link);
-              div.parentElement.removeChild(div);
-
-              // Update link counter for edit screen
-              document.getElementById("link-title").innerText = `Saved Links: ${url_arr.length}`;
-
-              // Update tab counter for popup
-              update_counter(name, url_arr);
-            }
+            });
+          // Go back to main popup page
+          window.location.href = "popup.html";
           });
+        } else {
+          // Delete row from edit page
+          let div = document.getElementById(link);
+          div.parentElement.removeChild(div);
+
+          // Update link counter for edit screen
+          document.getElementById("link-title").innerText = `Saved Links: ${url_arr.length}`;
+
+          // Update tab counter for popup
+          update_counter(name, url_arr);
         }
       });
     }
@@ -251,6 +295,8 @@ function add_link() {
   });
 }
 
+
+// Update the session counter within the state stored in chrome storage according to length of url_arr
 function update_counter(name, url_arr) {
   // Update array of links in chrome storage
   chrome.storage.sync.set({[name]: url_arr}, function() {
