@@ -324,13 +324,6 @@ function add_row(name, url_arr) {
       count_span.innerText = `| Tabs: ${url_arr.length}`;
       div.appendChild(count_span);
 
-      // Delete button
-      let del = document.createElement("button");
-      del.className = "del-button";
-      let i2 = document.createElement("i");
-      i2.className = "fa fa-trash-o";
-      del.appendChild(i2);
-      div.appendChild(del);
 
       // Edit button
       let edit = document.createElement("button");
@@ -339,6 +332,14 @@ function add_row(name, url_arr) {
       i1.className = "fa fa-edit";
       edit.appendChild(i1);
       div.appendChild(edit);
+
+      // Delete button
+      let del = document.createElement("button");
+      del.className = "del-button";
+      let i2 = document.createElement("i");
+      i2.className = "fa fa-trash-o";
+      del.appendChild(i2);
+      div.appendChild(del);
 
       // Update sessions counter display
       let sessions_title = document.getElementById("sessions-title");
@@ -361,7 +362,7 @@ function add_row(name, url_arr) {
 
 // Get time in correct format
 function getTime() {
-  return Date().toLocaleString().substring(0, 21);
+  return new Date().toDateString();
 }
 
 // Show form for session name

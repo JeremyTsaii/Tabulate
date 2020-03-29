@@ -155,7 +155,9 @@ body {
 /*Time Span*/
 .time-span {
   position: relative;
-  right: 110px;
+  right: 91px;
+  margin: 0px;
+  padding: 0px;
   font: greetingFont;
   font-size: 10px;
   float: right;
@@ -164,22 +166,23 @@ body {
 /*Count Span*/
 .count-span {
   position: relative;
-  left: 26px;
+  left: 30px;
   font: greetingFont;
   font-size: 10px;
   float: right;
+  margin: 0px;
+  padding: 0px;
+
 }
 
 /*Edit buttons*/
 .edit-button {
   cursor: pointer;
-  height: 34px;
-  width: 34px;
   position: relative;
-  left: 136px;
-  top: 5px;
+  left: 93px;
+  top: 12px;
   float: right;
-  background-color: white;
+  background-color: rgb(255, 255, 255, 0);
   color: #1a75ff;
   border: none;
   opacity: 0.6;
@@ -189,13 +192,11 @@ body {
 /*Delete buttons*/
 .del-button {
   cursor: pointer;
-  height: 34px;
-  width: 34px;
   position: relative;
-  left: 128px;
-  top: 4px;
+  background-color: rgb(255, 255, 255, 0);
+  left: 135px;
+  top: 11px;
   float: right;
-  background-color: white;
   color: #ff0080;
   border: none;
   opacity: 0.6;
@@ -408,15 +409,40 @@ button:active {
 
 /*-----------Edit Window--------------*/
 
+.edit {
+  height: 65px;
+  background-image: linear-gradient(#00b8e6,#057CC7);
+  margin-top: 0px;
+  border-radius: 0px 0px 30px 30px;
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+  position: relative;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .edit-title {
   color: white;
   font-size: 33px;
+  width: 280px;
   font-family: greetingFont;
   margin: 0;
   text-align: center;
   align-self: center;
   position: relative;
-  left: 60px;
+}
+
+.edit-button-back {
+  position: relative;
+  top: 3px;
+  align-self: center;
+  height: 30px;
+  width: 30px;
+  border-style: none;
+  background: none;   
+  cursor: pointer;
+  transition: all 0.5s;
+  opacity: 0.8;
 }
 
 #edit-back {
@@ -429,15 +455,11 @@ button:active {
 .edit-name {
   cursor: pointer;
   height: 70px;
-  width: 70px;
   position: relative;
-  right: 200px;
-  top: 2px;
   float: left;
   background: none;
   color: white;
   border: none;
-  opacity: 0.8;
   transition: 0.3s;
 }
 
@@ -446,7 +468,6 @@ button:active {
   height: 34px;
   width: 34px;
   position: relative;
-  left: 50px;
   top: 4px;
   float: right;
   background: none;
