@@ -143,7 +143,7 @@ body {
 }
 
 .click-session:hover {
-  border: 2px solid #1ad1ff;
+  border: 1.5px solid #1ad1ff;
 }
 
 /*Text Span*/
@@ -155,7 +155,7 @@ body {
 /*Time Span*/
 .time-span {
   position: relative;
-  right: 87px;
+  right: 92px;
   margin: 0px;
   padding: 0px;
   font: greetingFont;
@@ -466,6 +466,11 @@ button:active {
   color: white;
   border: none;
   transition: 0.3s;
+  opacity: 0.8;
+}
+
+.edit-name:hover {
+  opacity: 1;
 }
 
 .link-delete {
@@ -520,4 +525,8 @@ button:active {
   overflow: hidden;
   display: flex;
   justify-content: space-between;
+}
+
+.click-session-edit:hover {
+  border: 1.5px solid #1ad1ff;
 }
