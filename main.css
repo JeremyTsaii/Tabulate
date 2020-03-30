@@ -155,7 +155,7 @@ body {
 /*Time Span*/
 .time-span {
   position: relative;
-  right: 83px;
+  right: 90px;
   margin: 0px;
   padding: 0px;
   font: greetingFont;
@@ -481,13 +481,13 @@ button:active {
   cursor: pointer;
   height: 34px;
   width: 34px;
-  position: relative;
-  right: 40px;
-  top: -80px;
-  float: right;
+  position: absolute;
+  /* float: right; */
   background: none;
   color: #00b8e6;
   border: none;
   opacity: 0.8;
   transition: 0.3s;
+  top: 72px;
+  right: 43px;
 }
