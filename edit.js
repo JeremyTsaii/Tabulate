@@ -89,16 +89,16 @@ function del_link(obj_parent) {
       }
       
       // Remove link from array and update chrome storage
-      chrome.storage.sync.get([name], function(arr) {
-        let url_arr = arr[name];
-        url_arr.splice(url_arr.indexOf(link));
+      chrome.storage.sync.get([name], function(item) {
+        let url_arr = item[name];
+        url_arr.splice(url_arr.indexOf(link), 1);
 
         // If no more links, delete session 
         if (url_arr.length === 0) {
           // Remove session name from name_arr
           chrome.storage.sync.get("names_arr", function(arr) {
             let names_arr = arr.names_arr;
-            names_arr.splice(names_arr.indexOf(name));
+            names_arr.splice(names_arr.indexOf(name), 1);
             chrome.storage.sync.set({"names_arr": names_arr});
 
             // Update session counter
@@ -185,7 +185,7 @@ function edit_name(){
 
         // Update name within name_arr in chrome.storage
         // First remove old name and add new name
-        arr.splice(arr.indexOf(old_name));
+        arr.splice(arr.indexOf(old_name), 1);
         arr.push(new_name);
         chrome.storage.sync.set({"names_arr": arr});
 
@@ -291,6 +291,7 @@ function add_link() {
         // Add row to edit screen
         append_link(link);
 
+        // Update counter in popup state
         update_counter(name, url_arr);
       });
   });

@@ -181,7 +181,7 @@ function del(obj, obj_parent) {
             let arr = val.names_arr;
 
             // Remove name from name_arr in chrome.storage
-            arr.splice(arr.indexOf(old_name));
+            arr.splice(arr.indexOf(old_name), 1);
             chrome.storage.sync.set({"names_arr": arr});
 
             // Update previous state in chrome.storage
