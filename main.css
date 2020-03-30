@@ -179,7 +179,7 @@ body {
 .edit-button {
   cursor: pointer;
   position: relative;
-  left: 93px;
+  left: 91px;
   top: 12px;
   float: right;
   background-color: rgb(255, 255, 255, 0);
@@ -194,7 +194,7 @@ body {
   cursor: pointer;
   position: relative;
   background-color: rgb(255, 255, 255, 0);
-  left: 135px;
+  left: 133px;
   top: 11px;
   float: right;
   color: #ff0080;
