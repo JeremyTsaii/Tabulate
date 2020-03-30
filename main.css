@@ -155,7 +155,7 @@ body {
 /*Time Span*/
 .time-span {
   position: relative;
-  right: 90px;
+  right: 92px;
   margin: 0px;
   padding: 0px;
   font: greetingFont;
@@ -421,6 +421,11 @@ button:active {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+#edit-body {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 .edit-title {
   color: white;
   font-size: 33px;
@@ -467,7 +472,7 @@ button:active {
   cursor: pointer;
   height: 34px;
   width: 34px;
-  position: relative;
+  position: static;
   top: 4px;
   float: right;
   background: none;
@@ -490,4 +495,29 @@ button:active {
   transition: 0.3s;
   top: 72px;
   right: 43px;
+}
+
+.link-text {
+  margin: 0px;
+  padding: 0px;
+  height: 20px;
+  width: 5px;
+  max-width: 5px;
+}
+
+.click-session-edit {
+  color: black;
+  border: none;
+  background-color: white;
+  border-radius: 10px;
+  margin: 4px 2px;
+  cursor: pointer;
+  height: 40px;
+  justify-self: center;
+  line-height: 40px;
+  padding-left: 10px;
+  transition: 0.1s;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
 }

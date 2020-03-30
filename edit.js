@@ -33,9 +33,14 @@ function append_link(link) {
 
   // Create row div
   let div = document.createElement("div");
+
   div.id = link;
-  div.innerText = link;
-  div.className = "click-session";
+  div.className = "click-session-edit";
+
+  //Create p tag to display URL
+  let link_text = document.createElement("p");
+  link_text.className = "link-text";
+  link_text.innerText = link;
   
   // Delete button
   let del = document.createElement("button");
@@ -43,8 +48,8 @@ function append_link(link) {
   let i = document.createElement("i");
   i.className = "fa fa-trash-o";
   del.appendChild(i);
+  div.appendChild(link_text);
   div.appendChild(del);
-
   body.appendChild(div);
 }
 
