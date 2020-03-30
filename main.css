@@ -477,8 +477,8 @@ button:active {
   cursor: pointer;
   height: 34px;
   width: 34px;
-  position: static;
-  top: 4px;
+  position: relative;
+  top: 5px;
   float: right;
   background: none;
   color: #ff0080;
@@ -492,7 +492,6 @@ button:active {
   height: 34px;
   width: 34px;
   position: absolute;
-  /* float: right; */
   background: none;
   color: #00b8e6;
   border: none;

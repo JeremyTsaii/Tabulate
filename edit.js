@@ -60,7 +60,7 @@ function add_listener() {
     let obj_parent = obj.parentElement;
 
     // User clicked on link row
-    if (obj.className === "click-session") {
+    if (obj.className === "click-session-edit") {
       open_link(obj);
     } else if (obj.className === "link-delete" || obj.className === "fa fa-trash-o") { // Delete link row
       del_link(obj_parent);
