@@ -1,6 +1,6 @@
 {
   "name": "Tabulate",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Close tab sessions to save CPU resources and reopen them easily!",
   "author": "Jeremy T. & Sergio G.",
   "permissions": ["tabs", "activeTab", "storage", "unlimitedStorage"],
