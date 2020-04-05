@@ -40,7 +40,7 @@ function append_link(link) {
   //Create p tag to display URL
   let link_text = document.createElement("p");
   link_text.className = "link-text";
-  link_text.innerText = link;
+  link_text.innerText = link.substring(0, 50);
   
   // Delete button
   let del = document.createElement("button");
