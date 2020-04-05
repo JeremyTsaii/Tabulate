@@ -116,8 +116,8 @@ function open(obj, obj_parent) {
   });
 
   // Update time last opened and prev_state
-  let time_span = document.getElementById(id + "time");
-  time_span.innerText = getTime();
+  let info_span = document.getElementById(id + "info");
+  info_span.innerText = getTime() + info_span.innerText.substring(15);
   update_state();
 }
 
