@@ -311,14 +311,7 @@ function add_row(name, url_arr) {
       div.id = name;
       div.className = "click-session";
 
-      // Add current time to session row
-      // let time_span = document.createElement("span");
-      // time_span.id = name + "time";
-      // time_span.className = "time-span";
-      // time_span.innerText = getTime();
-      // div.appendChild(time_span);
-
-      // Add current itme and links counter to session row
+      // Add current item and links counter to session row
       let info_span = document.createElement("span");
       info_span.id = name + "info";
       info_span.className = "info-span";
