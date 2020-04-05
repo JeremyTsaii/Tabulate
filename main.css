@@ -152,16 +152,6 @@ body {
   font-size: 15px;
 }
 
-/*Time Span*/
-/* .time-span {
-  position: relative;
-  margin: 0px;
-  padding: 0px;
-  font: greetingFont;
-  font-size: 10px;
-  float: right;
-} */
-
 /*Count Span*/
 .info-span {
   position: relative;
@@ -483,6 +473,11 @@ button:active {
   border: none;
   opacity: 0.8;
   transition: 0.3s;
+}
+
+#link-title {
+  left: 5px;
+  position: relative;
 }
 
 .add-link {
