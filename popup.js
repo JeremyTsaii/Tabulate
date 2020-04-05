@@ -311,19 +311,18 @@ function add_row(name, url_arr) {
       div.className = "click-session";
 
       // Add current time to session row
-      let time_span = document.createElement("span");
-      time_span.id = name + "time";
-      time_span.className = "time-span";
-      time_span.innerText = getTime();
-      div.appendChild(time_span);
+      // let time_span = document.createElement("span");
+      // time_span.id = name + "time";
+      // time_span.className = "time-span";
+      // time_span.innerText = getTime();
+      // div.appendChild(time_span);
 
       // Add links counter to session row
-      let count_span = document.createElement("span");
-      count_span.id = name + "count";
-      count_span.className = "count-span";
-      count_span.innerText = `| Tabs: ${url_arr.length}`;
-      div.appendChild(count_span);
-
+      let info_span = document.createElement("span");
+      info_span.id = name + "count";
+      info_span.className = "info-span";
+      info_span.innerText = getTime() + " " + `| Tabs: ${url_arr.length}`;
+      div.appendChild(info_span);
 
       // Edit button
       let edit = document.createElement("button");

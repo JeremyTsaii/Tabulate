@@ -153,33 +153,31 @@ body {
 }
 
 /*Time Span*/
-.time-span {
+/* .time-span {
   position: relative;
-  right: 92px;
   margin: 0px;
   padding: 0px;
   font: greetingFont;
   font-size: 10px;
   float: right;
-}
+} */
 
 /*Count Span*/
-.count-span {
+.info-span {
   position: relative;
-  left: 30px;
+  right: 65px;
   font: greetingFont;
   font-size: 10px;
   float: right;
   margin: 0px;
   padding: 0px;
-
 }
 
 /*Edit buttons*/
 .edit-button {
   cursor: pointer;
   position: relative;
-  left: 91px;
+  left: 83px;
   top: 12px;
   float: right;
   background-color: rgb(255, 255, 255, 0);
@@ -489,16 +487,15 @@ button:active {
 
 .add-link {
   cursor: pointer;
-  height: 34px;
   width: 34px;
-  position: absolute;
   background: none;
   color: #00b8e6;
   border: none;
   opacity: 0.8;
   transition: 0.3s;
-  top: 72px;
-  right: 43px;
+  padding: 0%;
+  margin: 0;
+  float: right;
 }
 
 .link-text {

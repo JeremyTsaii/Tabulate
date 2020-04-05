@@ -58,12 +58,15 @@ function add_listener() {
   document.getElementById("edit-body").addEventListener("click", function(e){
     let obj = e.target;
     let obj_parent = obj.parentElement;
-
+    
     // User clicked on link row
     if (obj.className === "click-session-edit") {
       open_link(obj);
     } else if (obj.className === "link-delete" || obj.className === "fa fa-trash-o") { // Delete link row
       del_link(obj_parent);
+    }
+    else if (obj.className === "link-text") {
+      open_link(obj_parent);
     }
   });
 }
