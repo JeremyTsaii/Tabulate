@@ -168,7 +168,7 @@ body {
   cursor: pointer;
   position: relative;
   left: 83px;
-  top: 12px;
+  top: 13px;
   float: right;
   background-color: rgb(255, 255, 255, 0);
   color: #1a75ff;
@@ -183,7 +183,7 @@ body {
   position: relative;
   background-color: rgb(255, 255, 255, 0);
   left: 133px;
-  top: 11px;
+  top: 12.4px;
   float: right;
   color: #ff0080;
   border: none;
