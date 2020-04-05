@@ -32,8 +32,9 @@ function add_listener() {
   document.getElementById("sessions-body").addEventListener("click", function(e){
     let obj = e.target;
     let obj_parent = obj.parentElement;
+
     // Loop through and open all tabs
-    if (obj.className === "click-session" || obj.className === "text-span" || obj.className === "time-span") {
+    if (obj.className === "click-session" || obj.className === "text-span" || obj.className === "info-span") {
       open(obj, obj_parent);
     } // Edit session name
     else if (obj.className === "edit-button" || obj_parent.className === "edit-button") {
@@ -50,7 +51,7 @@ function open(obj, obj_parent) {
   let id = "";
   if (obj.className === "click-session") {
     id = obj.id;
-  } else if (obj.className === "text-span" || obj.className === "time-span") {
+  } else if (obj.className === "text-span" || obj.className === "info-span") {
     id = obj_parent.id;
   }
   
@@ -317,9 +318,9 @@ function add_row(name, url_arr) {
       // time_span.innerText = getTime();
       // div.appendChild(time_span);
 
-      // Add links counter to session row
+      // Add current itme and links counter to session row
       let info_span = document.createElement("span");
-      info_span.id = name + "count";
+      info_span.id = name + "info";
       info_span.className = "info-span";
       info_span.innerText = getTime() + " " + `| Tabs: ${url_arr.length}`;
       div.appendChild(info_span);

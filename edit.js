@@ -62,11 +62,10 @@ function add_listener() {
     // User clicked on link row
     if (obj.className === "click-session-edit") {
       open_link(obj);
+    } else if (obj.className === "link-text") {
+      open_link(obj_parent);
     } else if (obj.className === "link-delete" || obj.className === "fa fa-trash-o") { // Delete link row
       del_link(obj_parent);
-    }
-    else if (obj.className === "link-text") {
-      open_link(obj_parent);
     }
   });
 }
@@ -336,8 +335,8 @@ function update_counter(name, url_arr) {
       }
     
     // Update tab counter of count span
-    let count_span = row.childNodes[2];
-    count_span.innerText = `| Tabs: ${url_arr.length}`;
+    let info_span = row.childNodes[1];
+    info_span.innerText = info_span.innerText.substring(0, 16) + `| Tabs: ${url_arr.length}`;
 
     // Update previous state in chrome.storage
     chrome.storage.sync.set({"prev_state": old_state.outerHTML});
