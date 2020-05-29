@@ -1,7 +1,8 @@
 /*Font for logo, buttons, and session rows*/
 @font-face {
-  font-family: 'greetingFont';
-  src: url('fonts/segoeuil.tff') format('truetype'), url('fonts/segoeuil.woff') format('woff');
+  font-family: "greetingFont";
+  src: url("fonts/segoeuil.tff") format("truetype"),
+    url("fonts/segoeuil.woff") format("woff");
 }
 
 /*Main page*/
@@ -15,7 +16,7 @@ html {
 }
 
 body {
-  background-image: linear-gradient(#FFFFFF, #9BFFD4);
+  background-image: linear-gradient(#ffffff, #9bffd4);
   margin: 0;
   padding: 0;
   width: 440px;
@@ -36,7 +37,7 @@ body {
 
 .title {
   height: 65px;
-  background-image: linear-gradient(#00b8e6,#057CC7);
+  background-image: linear-gradient(#00b8e6, #057cc7);
   margin-top: 0px;
   border-radius: 0px 0px 30px 30px;
   display: flex;
@@ -56,14 +57,14 @@ body {
   height: 30px;
   width: 30px;
   border-style: none;
-  background: none;   
+  background: none;
   cursor: pointer;
   transition: all 0.5s;
   opacity: 0.8;
 }
 
 .rotate:hover {
-   transform: rotate(360deg);
+  transform: rotate(360deg);
 }
 
 .rotate {
@@ -92,9 +93,9 @@ body {
   width: 130px;
   opacity: 0.9;
   transition: 0.2s;
-  font-size: .82rem;
+  font-size: 0.82rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  background-image: linear-gradient(#00b8e6,#057CC7);
+  background-image: linear-gradient(#00b8e6, #057cc7);
 }
 
 .save-button:hover {
@@ -204,7 +205,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 /* Button Style After Pressed */
@@ -217,9 +218,11 @@ button:focus {
   outline: none;
 }
 
-button:hover {opacity: 1}
+button:hover {
+  opacity: 1;
+}
 
-button:active { 
+button:active {
   outline: none;
 }
 
@@ -241,7 +244,6 @@ button:active {
   overflow-x: hidden;
   overflow-y: auto;
 }
-
 
 /* Customize the label (the container) */
 .checkmark-container {
@@ -282,7 +284,7 @@ button:active {
 
 /* When the checkbox is checked, add a blue background */
 .checkmark-container input:checked ~ .checkmark {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -351,7 +353,7 @@ button:active {
 
 /* When the radio button is checked, add a blue background */
 .radio-container input:checked ~ .radio-checkmark {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -368,12 +370,12 @@ button:active {
 
 /* Style the indicator (dot/circle) */
 .radio-container .radio-checkmark:after {
- 	top: 9px;
-	left: 9px;
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	background: white;
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
 }
 
 #options-back {
@@ -399,7 +401,7 @@ button:active {
 
 .edit {
   height: 65px;
-  background-image: linear-gradient(#00b8e6,#057CC7);
+  background-image: linear-gradient(#00b8e6, #057cc7);
   margin-top: 0px;
   border-radius: 0px 0px 30px 30px;
   display: flex;
@@ -432,7 +434,7 @@ button:active {
   height: 30px;
   width: 30px;
   border-style: none;
-  background: none;   
+  background: none;
   cursor: pointer;
   transition: all 0.5s;
   opacity: 0.8;
